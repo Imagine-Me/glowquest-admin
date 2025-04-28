@@ -1,27 +1,33 @@
 "use client";
-import { getBrands, saveBrand, updateBrand } from "@/api/brand";
+
 import DeleteModal from "@/components/DeleteModal/DeleteModal";
 import { FormModal } from "@/components/FormModal/FormModal";
 import { Table } from "@/components/Table/Table";
-import { brandColDefs } from "@/constants/columnDefs";
-import { brandForm } from "@/constants/forms";
-import { IBrandModel } from "@/interfaces/brand.interface";
+import { pageProps } from "@/constants/page";
 import { Box, Button } from "@mui/material";
 import { useMemo, useState } from "react";
 
-export default function Brand() {
+interface Props {
+  page: string;
+}
+
+export default function Page({ page }: Props) {
+  const props = pageProps.find(({ title }) => title.toLowerCase() === page);
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [reload, setReload] = useState(false);
   const [selectedRowId, setSelectedRowId] = useState<null | number>(null);
-  const [rows, setRows] = useState<IBrandModel[]>([]);
+  const [rows, setRows] = useState<unknown[]>([]);
 
   const selectedRow = useMemo(() => {
-    return rows.find((row) => row.id === selectedRowId);
+    return rows.find((row: any) => row.id === selectedRowId);
   }, [rows, selectedRowId]);
 
+  if (!props) {
+    return "Not Available";
+  }
+
   const onFormSubmit = async (body: string) => {
-    console.log(JSON.parse(body));
     let response: {
       data: any;
       status: number;
@@ -29,10 +35,10 @@ export default function Brand() {
     };
     if (selectedRowId) {
       // update
-      response = await updateBrand(body);
+      response = await props.update(body);
     } else {
       // insert
-      response = await saveBrand(body);
+      response = await props.save(body);
     }
     setReload(true);
     return response;
@@ -62,25 +68,36 @@ export default function Brand() {
     <div>
       <Box display="flex" justifyContent="end">
         <Button variant="contained" onClick={() => setShowModal(true)}>
-          Create Brand
+          Create {props.title}
         </Button>
       </Box>
       <Table
-        colDefs={brandColDefs(onEdit, onDelete)}
-        fetchApi={getBrands}
+        colDefs={props.colDefs(onEdit, onDelete)}
+        fetchApi={props.getData}
         reload={reload}
         setReload={setReload}
         rows={rows}
         setRows={setRows}
       />
-      {showModal && <FormModal
-        open={showModal}
-        handleClose={onCloseModal}
-        form={brandForm(selectedRow)}
-        title={selectedRow ? "Update Brand" : "Create Brand"}
-        onSubmit={onFormSubmit}
-      />}
-      {showDeleteModal && <DeleteModal onClose={onRowDelete} open={showDeleteModal} row={selectedRow} />}
+      {showModal && (
+        <FormModal
+          open={showModal}
+          handleClose={onCloseModal}
+          form={props.form(selectedRow)}
+          title={
+            selectedRow ? `Update ${props.title}` : `Create ${props.title}`
+          }
+          onSubmit={onFormSubmit}
+        />
+      )}
+      {showDeleteModal && (
+        <DeleteModal
+          onClose={onRowDelete}
+          open={showDeleteModal}
+          row={selectedRow}
+          deleteItem={props.delete}
+        />
+      )}
     </div>
   );
 }

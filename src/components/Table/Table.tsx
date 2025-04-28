@@ -3,13 +3,14 @@
 import {
   IBrandModel,
   IPaginatedBrandModel,
+  IPaginatedGenericModel,
 } from "@/interfaces/brand.interface";
 import { IResponseModel } from "@/interfaces/common.interface";
 import { Paper } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 
-interface ITableProps {
+interface ITableProps<T> {
   colDefs: GridColDef[];
   fetchApi: (pagination: {
     page: number;
@@ -17,23 +18,23 @@ interface ITableProps {
   }) => Promise<{ data: any; status: number; ok: boolean }>;
   reload: boolean;
   setReload: (value: boolean) => void;
-  rows: IBrandModel[];
-  setRows: (rows: IBrandModel[]) => void;
+  rows: T[];
+  setRows: (rows: T[]) => void;
 }
 
-export const Table: React.FC<ITableProps> = ({
+export const Table = <T,>({
   colDefs,
   fetchApi,
   reload,
   setReload,
   rows,
   setRows,
-}) => {
+}: ITableProps<T>) => {
   const [pagination, setPagination] = useState({ page: 0, pageSize: 20 });
   const [total, setTotal] = useState(0);
   const fetchData = () => {
     fetchApi(pagination).then(
-      ({ data }: IResponseModel<IPaginatedBrandModel>) => {
+      ({ data }: IResponseModel<IPaginatedGenericModel<T>>) => {
         setRows(data.items);
         setTotal(data.total);
       }

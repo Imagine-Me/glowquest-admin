@@ -1,3 +1,6 @@
+import { GridColDef } from "@mui/x-data-grid";
+import { IForm } from "./form.interface";
+
 export interface IPagination<T> {
   items: T[];
   total: number;
@@ -9,4 +12,33 @@ export interface IResponseModel<T> {
   data: T;
   status: number;
   ok: boolean;
+}
+
+export interface IPageProps {
+  title: string;
+  colDefs: (
+    onEdit: (id: number) => void,
+    onDelete: (id: number) => void
+  ) => GridColDef[];
+  getData: (pagination: { page: number; pageSize: number }) => Promise<{
+    data: any;
+    status: number;
+    ok: boolean;
+  }>;
+  form: <T>(row?: T) => IForm[];
+  update: (body: string) => Promise<{
+    data: any;
+    status: number;
+    ok: boolean;
+  }>;
+  save: (body: string) => Promise<{
+    data: any;
+    status: number;
+    ok: boolean;
+  }>;
+  delete: (id: number) => Promise<{
+    data: any;
+    status: number;
+    ok: boolean;
+  }>;
 }

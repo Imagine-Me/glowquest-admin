@@ -1,6 +1,5 @@
 "use client";
 
-import { deleteBrand } from "@/api/brand";
 import {
   Button,
   Dialog,
@@ -15,16 +14,22 @@ interface IDeleteModalProps<T> {
   open: boolean;
   onClose: () => void;
   row: T;
+  deleteItem: (id: number) => Promise<{
+    data: any;
+    status: number;
+    ok: boolean;
+  }>;
 }
 export default function DeleteModal<T>({
   onClose,
   open,
   row,
+  deleteItem,
 }: IDeleteModalProps<T>) {
   const [loading, setLoading] = useState(false);
   const handleClose = () => {
     setLoading(true);
-    deleteBrand(row["id" as keyof T] as number).finally(() => {
+    deleteItem(row["id" as keyof T] as number).finally(() => {
       setLoading(false);
       onClose();
     });

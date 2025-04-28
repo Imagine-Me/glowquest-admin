@@ -15,16 +15,22 @@ import { useState } from "react";
 export default function Home() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const router = useRouter();
 
   const onLogin = async () => {
     setLoading(true);
+    setError("")
     const data = { email, password };
     const response = await login(JSON.stringify(data));
-    sessionStorage.setItem("token", response.access_token);
+    if (response.ok) {
+      sessionStorage.setItem("token", response.data.access_token);
+      router.push("/dashboard");
+    }else{
+      setError(response.data.detail)
+    }
     setLoading(false);
-    router.push("/dashboard");
   };
 
   return (
@@ -38,6 +44,7 @@ export default function Home() {
     >
       <Card sx={{ p: 2 }}>
         <Typography>Login</Typography>
+        {error && <Typography color="error">{error}</Typography>}
         <FormControl fullWidth sx={{ my: 1 }}>
           <TextField
             label="Email"

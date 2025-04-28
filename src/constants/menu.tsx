@@ -1,5 +1,19 @@
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import BrandingWatermarkIcon from "@mui/icons-material/BrandingWatermark";
+import CategoryIcon from '@mui/icons-material/Category';
+
+const commonPages = [
+  {
+    label: "Brand",
+    url: "/dashboard/brand",
+    icon: <BrandingWatermarkIcon />,
+  },
+  {
+    label: "Category",
+    url: "/dashboard/category",
+    icon: <CategoryIcon />,
+  },
+];
 
 export const menu = [
   {
@@ -7,9 +21,9 @@ export const menu = [
     url: "/dashboard",
     icon: <DashboardIcon />,
   },
-  {
-    label: "Brand",
-    url: "/dashboard/brand",
-    icon: <BrandingWatermarkIcon />,
-  },
+  ...commonPages,
 ];
+
+export const commonPageNames = commonPages.map((val) =>
+  val.label.toLowerCase()
+);

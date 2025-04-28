@@ -42,3 +42,6 @@ export interface IPageProps {
     ok: boolean;
   }>;
 }
+
+
+export type IPaginatedGenericModel<T> = IPagination<T>;

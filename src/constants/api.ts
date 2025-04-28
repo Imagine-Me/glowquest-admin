@@ -7,3 +7,7 @@ export const USER_URLS = {
 export const BRAND_URLS = {
   GET: API_END_POINT + "/brand"
 }
+
+export const CATEGORY_URLS = {
+  GET: API_END_POINT + "/category"
+}

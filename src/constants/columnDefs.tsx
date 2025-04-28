@@ -8,7 +8,7 @@ export const brandColDefs = (
   onDelete: (id: number) => void
 ): GridColDef[] => [
   { field: "id", headerName: "ID" },
-  { field: "brand", headerName: "Brand" },
+  { field: "name", headerName: "Brand" },
   { field: "description", headerName: "Description", flex: 1 },
   { field: "img_url", headerName: "Image URL" },
   { field: "slug", headerName: "Slug", width: 200 },
@@ -19,10 +19,39 @@ export const brandColDefs = (
     renderCell(params) {
       return (
         <>
-          <IconButton color="primary" onClick={()=>onEdit(params.row.id)}>
+          <IconButton color="primary" onClick={() => onEdit(params.row.id)}>
             <EditIcon />
           </IconButton>
-          <IconButton color="error" onClick={()=>onDelete(params.row.id)}>
+          <IconButton color="error" onClick={() => onDelete(params.row.id)}>
+            <DeleteOutlineIcon />
+          </IconButton>
+        </>
+      );
+    },
+  },
+];
+
+export const categoryColDefs = (
+  onEdit: (id: number) => void,
+  onDelete: (id: number) => void
+): GridColDef[] => [
+  { field: "id", headerName: "ID" },
+  { field: "name", headerName: "Category" },
+  { field: "description", headerName: "Description", flex: 1 },
+  { field: "image_url", headerName: "Image URL" },
+  { field: "slug", headerName: "Slug", width: 200 },
+  { field: "keywords", headerName: "Keywords" },
+  {
+    field: "",
+    headerName: "Actions",
+    width: 200,
+    renderCell(params) {
+      return (
+        <>
+          <IconButton color="primary" onClick={() => onEdit(params.row.id)}>
+            <EditIcon />
+          </IconButton>
+          <IconButton color="error" onClick={() => onDelete(params.row.id)}>
             <DeleteOutlineIcon />
           </IconButton>
         </>

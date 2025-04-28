@@ -45,7 +45,7 @@ export default function DeleteModal<T>({
       <DialogContent>
         <DialogContentText id="alert-dialog-description">
           Are you sure you want to delete{" "}
-          <b>{row?.["brand" as keyof T] as string}</b>
+          <b>{row?.["name" as keyof T] as string}</b>
         </DialogContentText>
       </DialogContent>
       <DialogActions>

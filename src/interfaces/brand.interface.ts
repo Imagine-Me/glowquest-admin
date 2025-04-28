@@ -1,7 +1,7 @@
 import { IPagination } from "./common.interface";
 
 export interface IBrandModel {
-  brand: string;
+  name: string;
   id: number;
   description: string;
   slug: string;
@@ -9,4 +9,3 @@ export interface IBrandModel {
 }
 
 export type IPaginatedBrandModel = IPagination<IBrandModel>;
-export type IPaginatedGenericModel<T> = IPagination<T>;

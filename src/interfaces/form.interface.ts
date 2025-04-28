@@ -1,9 +1,9 @@
-type FormType = "text" | "textarea" | "hidden";
+type FormType = "text" | "textarea" | "hidden" | "multiple";
 
 export interface IForm {
   name: string;
   type: FormType;
   placeholder?: string;
-  required?: boolean
-  value?: unknown
+  required?: boolean;
+  value?: unknown;
 }

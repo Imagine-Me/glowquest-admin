@@ -1,11 +1,8 @@
 "use client";
-
 import {
-  IBrandModel,
-  IPaginatedBrandModel,
   IPaginatedGenericModel,
-} from "@/interfaces/brand.interface";
-import { IResponseModel } from "@/interfaces/common.interface";
+  IResponseModel,
+} from "@/interfaces/common.interface";
 import { Paper } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";

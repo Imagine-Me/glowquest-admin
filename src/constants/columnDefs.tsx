@@ -40,7 +40,17 @@ export const categoryColDefs = (
   { field: "description", headerName: "Description", flex: 1 },
   { field: "image_url", headerName: "Image URL" },
   { field: "slug", headerName: "Slug", width: 200 },
-  { field: "keywords", headerName: "Keywords" },
+  {
+    field: "keywords",
+    headerName: "Keywords",
+    valueGetter(value) {
+      try {
+        return JSON.parse(value).toString();
+      } catch {
+        return "";
+      }
+    },
+  },
   {
     field: "",
     headerName: "Actions",

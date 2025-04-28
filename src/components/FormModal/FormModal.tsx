@@ -12,6 +12,8 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useMemo, useState } from "react";
+import { MultipleField } from "../MultipleField/MultipleField";
+import { parseFormData } from "@/utils/parseForm";
 
 interface IFormModal {
   open: boolean;
@@ -74,6 +76,15 @@ export const FormModal: React.FC<IFormModal> = ({
               value={value as number}
             />
           );
+        case "multiple":
+          return (
+            <MultipleField
+              key={name}
+              name={name}
+              defaultValue={value as string}
+              placeholder={placeholder}
+            />
+          );
       }
     });
   }, [form]);
@@ -89,6 +100,7 @@ export const FormModal: React.FC<IFormModal> = ({
             event.preventDefault();
             setIsSubmitted(true);
             const formData = new FormData(event.currentTarget);
+            parseFormData(formData)
             const formJson = Object.fromEntries((formData as any).entries());
             const response = await onSubmit?.(JSON.stringify(formJson));
             if (!response.ok) {

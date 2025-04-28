@@ -79,7 +79,7 @@ export const categoryForm = <T>(row?: T): IForm[] => {
       name: "keywords",
       type: "multiple",
       required: false,
-      value: row?.["id" as keyof T] ?? "",
+      value: row?.["keywords" as keyof T] ?? "",
     },
   ];
 };

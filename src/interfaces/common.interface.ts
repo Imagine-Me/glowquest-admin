@@ -1,6 +1,11 @@
 import { GridColDef } from "@mui/x-data-grid";
 import { IForm } from "./form.interface";
 
+export interface SelectOption {
+  label: string;
+  value: string;
+}
+
 export interface IPagination<T> {
   items: T[];
   total: number;
@@ -42,6 +47,5 @@ export interface IPageProps {
     ok: boolean;
   }>;
 }
-
 
 export type IPaginatedGenericModel<T> = IPagination<T>;

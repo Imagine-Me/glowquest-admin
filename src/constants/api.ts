@@ -11,3 +11,7 @@ export const BRAND_URLS = {
 export const CATEGORY_URLS = {
   GET: API_END_POINT + "/category"
 }
+
+export const VARIANT_URLS = {
+  GET: API_END_POINT + "/variant"
+}

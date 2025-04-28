@@ -21,14 +21,15 @@ export default function Home() {
 
   const onLogin = async () => {
     setLoading(true);
-    setError("")
+    setError("");
     const data = { email, password };
     const response = await login(JSON.stringify(data));
+    console.log(response);
+    sessionStorage.setItem("token", response.data.access_token);
     if (response.ok) {
-      sessionStorage.setItem("token", response.data.access_token);
-      router.push("/dashboard");
-    }else{
-      setError(response.data.detail)
+      router.push("/dashboard/brand");
+    } else {
+      setError(response.data.detail);
     }
     setLoading(false);
   };

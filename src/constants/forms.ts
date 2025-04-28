@@ -1,4 +1,5 @@
 import { IForm } from "@/interfaces/form.interface";
+import { getVariantTypeOptions } from "./data";
 
 export const brandForm = <T>(row?: T): IForm[] => {
   return [
@@ -78,8 +79,42 @@ export const categoryForm = <T>(row?: T): IForm[] => {
     {
       name: "keywords",
       type: "multiple",
+      placeholder: "Keywords",
       required: false,
       value: row?.["keywords" as keyof T] ?? "",
+    },
+  ];
+};
+
+export const variantForm = <T>(row?: T): IForm[] => {
+  return [
+    {
+      name: "name",
+      placeholder: "Enter Name",
+      type: "text",
+      required: true,
+      value: row?.["name" as keyof T] ?? "",
+    },
+    {
+      name: "type",
+      placeholder: "Enter Type",
+      type: "select",
+      required: true,
+      value: row?.["type" as keyof T] ?? "",
+      getOptions: getVariantTypeOptions,
+    },
+    {
+      name: "value",
+      placeholder: "Enter Value",
+      type: "text",
+      required: true,
+      value: row?.["value" as keyof T] ?? "",
+    },
+    {
+      name: "id",
+      type: "hidden",
+      required: false,
+      value: row?.["id" as keyof T] ?? "",
     },
   ];
 };

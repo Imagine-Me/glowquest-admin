@@ -14,6 +14,7 @@ import {
 import React, { useMemo, useState } from "react";
 import { MultipleField } from "../MultipleField/MultipleField";
 import { parseFormData } from "@/utils/parseForm";
+import { SelectForm } from "../forms/Select";
 
 interface IFormModal {
   open: boolean;
@@ -35,58 +36,70 @@ export const FormModal: React.FC<IFormModal> = ({
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState("");
   const formElements = useMemo(() => {
-    return form.map(({ name, placeholder, type, required, value }) => {
-      switch (type) {
-        case "text":
-          return (
-            <TextField
-              key={name}
-              margin="dense"
-              id={name}
-              name={name}
-              placeholder={placeholder}
-              fullWidth
-              variant="outlined"
-              required={required}
-              defaultValue={value}
-            />
-          );
-        case "textarea":
-          return (
-            <TextField
-              key={name}
-              required={required}
-              margin="dense"
-              id={name}
-              name={name}
-              rows={3}
-              placeholder={placeholder}
-              fullWidth
-              variant="outlined"
-              multiline
-              defaultValue={value}
-            />
-          );
-        case "hidden":
-          return (
-            <input
-              key={name}
-              name={name}
-              type="hidden"
-              value={value as number}
-            />
-          );
-        case "multiple":
-          return (
-            <MultipleField
-              key={name}
-              name={name}
-              defaultValue={value as string}
-              placeholder={placeholder}
-            />
-          );
+    return form.map(
+      ({ name, placeholder, type, required, value, getOptions }) => {
+        switch (type) {
+          case "text":
+            return (
+              <TextField
+                key={name}
+                margin="dense"
+                id={name}
+                name={name}
+                placeholder={placeholder}
+                fullWidth
+                variant="outlined"
+                required={required}
+                defaultValue={value}
+              />
+            );
+          case "textarea":
+            return (
+              <TextField
+                key={name}
+                required={required}
+                margin="dense"
+                id={name}
+                name={name}
+                rows={3}
+                placeholder={placeholder}
+                fullWidth
+                variant="outlined"
+                multiline
+                defaultValue={value}
+              />
+            );
+          case "hidden":
+            return (
+              <input
+                key={name}
+                name={name}
+                type="hidden"
+                value={value as number}
+              />
+            );
+          case "multiple":
+            return (
+              <MultipleField
+                key={name}
+                name={name}
+                defaultValue={value as string}
+                placeholder={placeholder}
+              />
+            );
+          case "select":
+            return (
+              <SelectForm
+                fetchData={getOptions!}
+                name={name}
+                key={name}
+                placeholder={placeholder}
+                value={value as string}
+              />
+            );
+        }
       }
-    });
+    );
   }, [form]);
 
   return (
@@ -100,7 +113,7 @@ export const FormModal: React.FC<IFormModal> = ({
             event.preventDefault();
             setIsSubmitted(true);
             const formData = new FormData(event.currentTarget);
-            parseFormData(formData)
+            parseFormData(formData);
             const formJson = Object.fromEntries((formData as any).entries());
             const response = await onSubmit?.(JSON.stringify(formJson));
             if (!response.ok) {

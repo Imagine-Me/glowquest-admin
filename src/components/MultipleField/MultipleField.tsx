@@ -25,6 +25,7 @@ export const MultipleField: React.FC<IMultipleProps> = ({
         multiple
         id={name}
         options={[]}
+        sx={{ mt: 1 }}
         value={value}
         defaultValue={defaultValueR}
         freeSolo
@@ -43,7 +44,7 @@ export const MultipleField: React.FC<IMultipleProps> = ({
         }
         onChange={(_, value) => setValue(value)}
         renderInput={(params) => (
-          <TextField {...params} variant="outlined" placeholder={placeholder} />
+          <TextField {...params} variant="outlined" label={placeholder} />
         )}
       />
       <input type="hidden" name={name} value={JSON.stringify(value)} />

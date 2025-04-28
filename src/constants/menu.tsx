@@ -1,6 +1,7 @@
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import BrandingWatermarkIcon from "@mui/icons-material/BrandingWatermark";
-import CategoryIcon from '@mui/icons-material/Category';
+import CategoryIcon from "@mui/icons-material/Category";
+import ReorderIcon from "@mui/icons-material/Reorder";
 
 const commonPages = [
   {
@@ -12,6 +13,11 @@ const commonPages = [
     label: "Category",
     url: "/dashboard/category",
     icon: <CategoryIcon />,
+  },
+  {
+    label: "Variant",
+    url: "/dashboard/variant",
+    icon: <ReorderIcon />,
   },
 ];
 

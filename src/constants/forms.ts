@@ -1,5 +1,7 @@
 import { IForm } from "@/interfaces/form.interface";
 import { getVariantTypeOptions } from "./data";
+import { getCategoryOptions } from "@/api/category";
+import { getBrandOptions } from "@/api/brand";
 
 export const brandForm = <T>(row?: T): IForm[] => {
   return [
@@ -109,6 +111,62 @@ export const variantForm = <T>(row?: T): IForm[] => {
       type: "text",
       required: true,
       value: row?.["value" as keyof T] ?? "",
+    },
+    {
+      name: "id",
+      type: "hidden",
+      required: false,
+      value: row?.["id" as keyof T] ?? "",
+    },
+  ];
+};
+
+export const productForm = <T>(row?: T): IForm[] => {
+  return [
+    {
+      name: "name",
+      placeholder: "Enter Name",
+      type: "text",
+      required: true,
+      value: row?.["name" as keyof T] ?? "",
+    },
+    {
+      name: "slug",
+      placeholder: "Enter Slug",
+      type: "text",
+      required: true,
+      value: row?.["slug" as keyof T] ?? "",
+    },
+    {
+      name: "description",
+      placeholder: "Enter Description",
+      type: "textarea",
+      required: true,
+      value: row?.["description" as keyof T] ?? "",
+    },
+    {
+      name: "image",
+      placeholder: "Enter Image",
+      type: "text",
+      required: true,
+      value: row?.["image" as keyof T] ?? "",
+    },
+    {
+      name: "category_id",
+      placeholder: "Enter Category",
+      type: "autocomplete",
+      required: true,
+      value: row?.["category_id" as keyof T] ?? "",
+      getOptions: getCategoryOptions,
+    },
+    {
+      name: "brand_ids",
+      placeholder: "Enter Brands",
+      type: "autocomplete",
+      required: true,
+      value: row?.["brand_ids" as keyof T] ?? "",
+      getOptions: getBrandOptions,
+      multiple: true,
     },
     {
       name: "id",

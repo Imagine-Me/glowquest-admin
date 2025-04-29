@@ -3,6 +3,7 @@
 import { CATEGORY_URLS } from "@/constants/api";
 import { fetchAPI } from "./api";
 import { apiHeader } from "@/utils/common";
+import { SelectOption } from "@/interfaces/common.interface";
 
 export async function getCategories(pagination: {
   page: number;
@@ -11,6 +12,11 @@ export async function getCategories(pagination: {
   return await fetchAPI(
     `${CATEGORY_URLS.GET}?skip=${pagination.page}&limit=${pagination.pageSize}`
   );
+}
+
+export async function getCategoryOptions(name?: string) {
+  return (await fetchAPI(`${CATEGORY_URLS.OPTIONS}/?name=${name ?? ""}`))
+    .data as SelectOption[];
 }
 
 export const saveCategory = async (body: string) => {

@@ -12,9 +12,11 @@ export const MultipleField: React.FC<IMultipleProps> = ({
   defaultValue,
   placeholder,
 }) => {
-  let parsedValue = [];
+  let parsedValue: string[] = [];
   try {
-    parsedValue = JSON.parse(defaultValue ?? "");
+    if (defaultValue) {
+      parsedValue = defaultValue?.split(",");
+    }
   } catch {}
   const defaultValueR = defaultValue ? parsedValue : [];
   const [value, setValue] = useState(defaultValueR);
@@ -47,7 +49,7 @@ export const MultipleField: React.FC<IMultipleProps> = ({
           <TextField {...params} variant="outlined" label={placeholder} />
         )}
       />
-      <input type="hidden" name={name} value={JSON.stringify(value)} />
+      <input type="hidden" name={name} value={value.join(",")} />
     </>
   );
 };

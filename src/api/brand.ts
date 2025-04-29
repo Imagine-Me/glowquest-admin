@@ -3,6 +3,7 @@
 import { BRAND_URLS } from "@/constants/api";
 import { fetchAPI } from "./api";
 import { apiHeader } from "@/utils/common";
+import { SelectOption } from "@/interfaces/common.interface";
 
 export async function getBrands(pagination: {
   page: number;
@@ -12,6 +13,13 @@ export async function getBrands(pagination: {
     `${BRAND_URLS.GET}?skip=${pagination.page}&limit=${pagination.pageSize}`
   );
 }
+
+
+export async function getBrandOptions(name?: string) {
+  return (await fetchAPI(`${BRAND_URLS.OPTIONS}/?name=${name ?? ""}`))
+    .data as SelectOption[];
+}
+
 
 export const saveBrand = async (body: string) => {
   return await fetchAPI(BRAND_URLS.GET, {

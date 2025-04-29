@@ -1,6 +1,6 @@
 import { SelectOption } from "./common.interface";
 
-type FormType = "text" | "textarea" | "hidden" | "multiple" | "select";
+type FormType = "text" | "textarea" | "hidden" | "multiple" | "select" | "autocomplete";
 
 export interface IForm {
   name: string;
@@ -8,5 +8,6 @@ export interface IForm {
   placeholder?: string;
   required?: boolean;
   value?: unknown;
-  getOptions?: () => Promise<SelectOption[]>;
+  getOptions?: (name?:string) => Promise<SelectOption[]>;
+  multiple?:boolean
 }

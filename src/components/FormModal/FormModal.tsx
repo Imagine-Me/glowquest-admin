@@ -3,6 +3,7 @@
 import { IResponseModel } from "@/interfaces/common.interface";
 import { IForm } from "@/interfaces/form.interface";
 import {
+  Alert,
   Button,
   Dialog,
   DialogActions,
@@ -12,9 +13,10 @@ import {
   TextField,
 } from "@mui/material";
 import React, { useMemo, useState } from "react";
-import { MultipleField } from "../MultipleField/MultipleField";
+import { MultipleField } from "../forms/MultipleField";
 import { parseFormData } from "@/utils/parseForm";
 import { SelectForm } from "../forms/Select";
+import { AutoCompleteForm } from "../forms/Autocomplete";
 
 interface IFormModal {
   open: boolean;
@@ -37,7 +39,7 @@ export const FormModal: React.FC<IFormModal> = ({
   const [error, setError] = useState("");
   const formElements = useMemo(() => {
     return form.map(
-      ({ name, placeholder, type, required, value, getOptions }) => {
+      ({ name, placeholder, type, required, value, getOptions, multiple }) => {
         switch (type) {
           case "text":
             return (
@@ -97,6 +99,17 @@ export const FormModal: React.FC<IFormModal> = ({
                 value={value as string}
               />
             );
+          case "autocomplete":
+            return (
+              <AutoCompleteForm
+                key={name}
+                fetchData={getOptions!}
+                name={name}
+                defaultValue={value as string}
+                placeholder={placeholder}
+                multiple={multiple}
+              />
+            );
         }
       }
     );
@@ -113,20 +126,26 @@ export const FormModal: React.FC<IFormModal> = ({
             event.preventDefault();
             setIsSubmitted(true);
             const formData = new FormData(event.currentTarget);
-            parseFormData(formData);
+            console.log(parseFormData(formData));
             const formJson = Object.fromEntries((formData as any).entries());
-            const response = await onSubmit?.(JSON.stringify(formJson));
+            const response = await onSubmit?.(JSON.stringify(parseFormData(formData)));
             if (!response.ok) {
               setError(response.data);
+            } else {
+              setIsSubmitted(false);
+              handleClose();
             }
-            setIsSubmitted(false);
-            handleClose();
           },
         },
       }}
     >
       {title && <DialogTitle>{title}</DialogTitle>}
       <DialogContent>
+        {error && (
+          <Alert variant="filled" severity="error">
+            {JSON.stringify(error)}
+          </Alert>
+        )}
         {bodyTitle && <DialogContentText>{bodyTitle}</DialogContentText>}
         {formElements}
       </DialogContent>

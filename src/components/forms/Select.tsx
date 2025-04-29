@@ -20,20 +20,20 @@ export const SelectForm = ({
     fetchData().then(setOptions);
   }, []);
   return (
-    <FormControl fullWidth>
-      <InputLabel id={name}>{placeholder}</InputLabel>
-      <Select
-        sx={{ mt: 2 }}
-        defaultValue={value}
-        fullWidth
-        name={name}
-        labelId={name}
-        label={placeholder}
-      >
-        {options.map((option) => (
-          <MenuItem value={option.value}>{option.label}</MenuItem>
-        ))}
-      </Select>
-    </FormControl>
+    <Box sx={{ minWidth: 120, mt: 1 }}>
+      <FormControl fullWidth>
+        <InputLabel id={name}>{placeholder}</InputLabel>
+        <Select
+          defaultValue={value}
+          name={name}
+          labelId={name}
+          label={placeholder}
+        >
+          {options.map((option) => (
+            <MenuItem value={option.value}>{option.label}</MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+    </Box>
   );
 };

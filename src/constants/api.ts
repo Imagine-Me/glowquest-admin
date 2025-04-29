@@ -5,13 +5,19 @@ export const USER_URLS = {
 };
 
 export const BRAND_URLS = {
-  GET: API_END_POINT + "/brand"
-}
+  GET: API_END_POINT + "/brand",
+  OPTIONS: API_END_POINT + "/brand/options",
+};
 
 export const CATEGORY_URLS = {
-  GET: API_END_POINT + "/category"
-}
+  GET: API_END_POINT + "/category",
+  OPTIONS: API_END_POINT + "/category/options",
+};
 
 export const VARIANT_URLS = {
-  GET: API_END_POINT + "/variant"
-}
+  GET: API_END_POINT + "/variant",
+};
+
+export const PRODUCT_URLS = {
+  GET: API_END_POINT + "/product",
+};

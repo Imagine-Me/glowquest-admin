@@ -3,9 +3,16 @@ import {
   brandColDefs,
   categoryColDefs,
   productColDefs,
+  siteColDefs,
   variantColDefs,
 } from "./columnDefs";
-import { brandForm, categoryForm, productForm, variantForm } from "./forms";
+import {
+  brandForm,
+  categoryForm,
+  productForm,
+  siteForm,
+  variantForm,
+} from "./forms";
 import { IPageProps } from "@/interfaces/common.interface";
 import {
   deleteCategory,
@@ -25,6 +32,7 @@ import {
   saveProduct,
   updateProduct,
 } from "@/api/product";
+import { deleteSite, getSites, saveSite, updateSite } from "@/api/site";
 
 const brandPage: IPageProps = {
   title: "Brand",
@@ -66,4 +74,20 @@ const productPage: IPageProps = {
   delete: deleteProduct,
 };
 
-export const pageProps = [brandPage, categoryPage, variantPage, productPage];
+const sitePage: IPageProps = {
+  title: "Site",
+  colDefs: siteColDefs,
+  getData: getSites,
+  form: siteForm,
+  save: saveSite,
+  update: updateSite,
+  delete: deleteSite,
+};
+
+export const pageProps = [
+  brandPage,
+  categoryPage,
+  variantPage,
+  productPage,
+  sitePage,
+];

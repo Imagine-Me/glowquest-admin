@@ -9,6 +9,11 @@ export const BRAND_URLS = {
   OPTIONS: API_END_POINT + "/brand/options",
 };
 
+export const SITE_URLS = {
+  GET: API_END_POINT + "/site",
+  OPTIONS: API_END_POINT + "/site/options",
+};
+
 export const CATEGORY_URLS = {
   GET: API_END_POINT + "/category",
   OPTIONS: API_END_POINT + "/category/options",

@@ -134,3 +134,28 @@ export const productColDefs = (
     },
   },
 ];
+
+export const siteColDefs = (
+  onEdit: (id: number) => void,
+  onDelete: (id: number) => void
+): GridColDef[] => [
+  { field: "id", headerName: "ID", minWidth: 200 },
+  { field: "name", headerName: "Name", flex: 1 },
+  {
+    field: "",
+    headerName: "Actions",
+    width: 200,
+    renderCell(params) {
+      return (
+        <>
+          <IconButton color="primary" onClick={() => onEdit(params.row.id)}>
+            <EditIcon />
+          </IconButton>
+          <IconButton color="error" onClick={() => onDelete(params.row.id)}>
+            <DeleteOutlineIcon />
+          </IconButton>
+        </>
+      );
+    },
+  },
+];

@@ -176,3 +176,22 @@ export const productForm = <T>(row?: T): IForm[] => {
     },
   ];
 };
+
+
+export const siteForm = <T>(row?: T): IForm[] => {
+  return [
+    {
+      name: "name",
+      placeholder: "Enter Name",
+      type: "text",
+      required: true,
+      value: row?.["name" as keyof T] ?? "",
+    },
+    {
+      name: "id",
+      type: "hidden",
+      required: false,
+      value: row?.["id" as keyof T] ?? "",
+    },
+  ];
+};

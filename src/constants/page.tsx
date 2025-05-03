@@ -58,7 +58,7 @@ const variantPage: IPageProps = {
   title: "Variant",
   colDefs: variantColDefs,
   getData: getVariants,
-  form: productForm,
+  form: variantForm,
   save: saveVariant,
   update: updateVariant,
   delete: deleteVariant,

@@ -119,6 +119,8 @@ export const FormModal: React.FC<IFormModal> = ({
     <Dialog
       open={open}
       onClose={handleClose}
+      fullWidth
+      maxWidth="sm"
       slotProps={{
         paper: {
           component: "form",
@@ -126,9 +128,9 @@ export const FormModal: React.FC<IFormModal> = ({
             event.preventDefault();
             setIsSubmitted(true);
             const formData = new FormData(event.currentTarget);
-            console.log(parseFormData(formData));
-            const formJson = Object.fromEntries((formData as any).entries());
-            const response = await onSubmit?.(JSON.stringify(parseFormData(formData)));
+            const response = await onSubmit?.(
+              JSON.stringify(parseFormData(formData))
+            );
             if (!response.ok) {
               setError(response.data);
             } else {

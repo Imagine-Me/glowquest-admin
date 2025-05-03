@@ -10,10 +10,10 @@ export const brandColDefs = (
   onDelete: (id: number) => void
 ): GridColDef[] => [
   { field: "id", headerName: "ID" },
-  { field: "name", headerName: "Brand" },
+  { field: "name", headerName: "Brand", minWidth: 200 },
   { field: "description", headerName: "Description", flex: 1 },
-  { field: "img_url", headerName: "Image URL" },
-  { field: "slug", headerName: "Slug", width: 200 },
+  { field: "img_url", headerName: "Image URL", minWidth: 200 },
+  { field: "slug", headerName: "Slug", minWidth: 200 },
   {
     field: "",
     headerName: "Actions",

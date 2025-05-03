@@ -66,6 +66,9 @@ export const AutoCompleteForm: React.FC<IAutoCompleteFormProps> = ({
   }, [inputValue]);
 
   const outputValue = useMemo(() => {
+    if (multiple && value === null) {
+      return JSON.stringify([]);
+    }
     if (Array.isArray(value)) {
       const newValue = value.map((val) => val.value);
       return JSON.stringify(newValue);

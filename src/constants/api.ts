@@ -21,8 +21,14 @@ export const CATEGORY_URLS = {
 
 export const VARIANT_URLS = {
   GET: API_END_POINT + "/variant",
+  OPTIONS: API_END_POINT + "/variant/options",
 };
 
 export const PRODUCT_URLS = {
   GET: API_END_POINT + "/product",
+  OPTIONS: API_END_POINT + "/product/options",
 };
+export const ITEM_URLS = {
+  GET: API_END_POINT + "/item",
+};
+

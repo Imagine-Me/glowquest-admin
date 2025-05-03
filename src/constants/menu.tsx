@@ -4,6 +4,7 @@ import CategoryIcon from "@mui/icons-material/Category";
 import ReorderIcon from "@mui/icons-material/Reorder";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import LanguageIcon from '@mui/icons-material/Language';
+import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 
 const commonPages = [
   {
@@ -30,6 +31,11 @@ const commonPages = [
     label: "Sites",
     url: "/dashboard/site",
     icon: <LanguageIcon />,
+  },
+  {
+    label: "Items",
+    url: "/dashboard/item",
+    icon: <FolderCopyIcon />,
   },
 ];
 

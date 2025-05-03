@@ -84,6 +84,7 @@ export default function Page({ page }: Props) {
           open={showModal}
           handleClose={onCloseModal}
           form={props.form(selectedRow)}
+          isUpdate = {!!selectedRow}
           title={
             selectedRow ? `Update ${props.title}` : `Create ${props.title}`
           }

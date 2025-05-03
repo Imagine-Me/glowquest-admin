@@ -3,6 +3,7 @@
 import { PRODUCT_URLS } from "@/constants/api";
 import { fetchAPI } from "./api";
 import { apiHeader } from "@/utils/common";
+import { SelectOption } from "@/interfaces/common.interface";
 
 export async function getProducts(pagination: {
   page: number;
@@ -11,6 +12,11 @@ export async function getProducts(pagination: {
   return await fetchAPI(
     `${PRODUCT_URLS.GET}?skip=${pagination.page}&limit=${pagination.pageSize}`
   );
+}
+
+export async function getProductOptions(name?: string) {
+  return (await fetchAPI(`${PRODUCT_URLS.OPTIONS}/?name=${name ?? ""}`))
+    .data as SelectOption[];
 }
 
 export const saveProduct = async (body: string) => {

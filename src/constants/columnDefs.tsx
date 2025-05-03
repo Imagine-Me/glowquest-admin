@@ -4,12 +4,12 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { ICategoryModel } from "@/interfaces/category.interface";
 import { IBrandModel } from "@/interfaces/brand.interface";
+import { IProductModel } from "@/interfaces/product.interface";
 
 export const brandColDefs = (
   onEdit: (id: number) => void,
   onDelete: (id: number) => void
 ): GridColDef[] => [
-  { field: "id", headerName: "ID" },
   { field: "name", headerName: "Brand", minWidth: 200 },
   { field: "description", headerName: "Description", flex: 1 },
   { field: "img_url", headerName: "Image URL", minWidth: 200 },
@@ -37,7 +37,6 @@ export const categoryColDefs = (
   onEdit: (id: number) => void,
   onDelete: (id: number) => void
 ): GridColDef[] => [
-  { field: "id", headerName: "ID" },
   { field: "name", headerName: "Category" },
   { field: "description", headerName: "Description", flex: 1 },
   { field: "image_url", headerName: "Image URL" },
@@ -69,7 +68,6 @@ export const variantColDefs = (
   onEdit: (id: number) => void,
   onDelete: (id: number) => void
 ): GridColDef[] => [
-  { field: "id", headerName: "ID" },
   { field: "name", headerName: "Name", flex: 1 },
   { field: "type", headerName: "Type" },
   { field: "value", headerName: "Value" },
@@ -96,7 +94,6 @@ export const productColDefs = (
   onEdit: (id: number) => void,
   onDelete: (id: number) => void
 ): GridColDef[] => [
-  { field: "id", headerName: "ID" },
   { field: "name", headerName: "Name" },
   { field: "description", headerName: "Description", flex: 1, minWidth: 200 },
   { field: "image", headerName: "Image" },
@@ -139,8 +136,57 @@ export const siteColDefs = (
   onEdit: (id: number) => void,
   onDelete: (id: number) => void
 ): GridColDef[] => [
-  { field: "id", headerName: "ID", minWidth: 200 },
   { field: "name", headerName: "Name", flex: 1 },
+  {
+    field: "",
+    headerName: "Actions",
+    width: 200,
+    renderCell(params) {
+      return (
+        <>
+          <IconButton color="primary" onClick={() => onEdit(params.row.id)}>
+            <EditIcon />
+          </IconButton>
+          <IconButton color="error" onClick={() => onDelete(params.row.id)}>
+            <DeleteOutlineIcon />
+          </IconButton>
+        </>
+      );
+    },
+  },
+];
+
+export const itemColDefs = (
+  onEdit: (id: number) => void,
+  onDelete: (id: number) => void
+): GridColDef[] => [
+  { field: "name", headerName: "Name", minWidth: 200 },
+  { field: "slug", headerName: "Slug", minWidth: 200 },
+  { field: "description", headerName: "Description", minWidth: 200 },
+  {
+    field: "brand",
+    headerName: "Brand",
+    minWidth: 200,
+    valueGetter(value: IBrandModel) {
+      return value.name;
+    },
+  },
+  {
+    field: "product",
+    headerName: "Product",
+    minWidth: 200,
+    valueGetter(value: IProductModel) {
+      return value.name;
+    },
+  },
+  {
+    field: "variant",
+    headerName: "Variant",
+    minWidth: 200,
+    valueGetter(value?: IBrandModel) {
+      return value?.name ?? "_";
+    },
+  },
   {
     field: "",
     headerName: "Actions",

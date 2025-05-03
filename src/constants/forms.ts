@@ -2,6 +2,8 @@ import { IForm } from "@/interfaces/form.interface";
 import { getVariantTypeOptions } from "./data";
 import { getCategoryOptions } from "@/api/category";
 import { getBrandOptions } from "@/api/brand";
+import { getProductOptions } from "@/api/product";
+import { getVariantOptions } from "@/api/variant";
 
 export const brandForm = <T>(row?: T): IForm[] => {
   return [
@@ -177,7 +179,6 @@ export const productForm = <T>(row?: T): IForm[] => {
   ];
 };
 
-
 export const siteForm = <T>(row?: T): IForm[] => {
   return [
     {
@@ -186,6 +187,79 @@ export const siteForm = <T>(row?: T): IForm[] => {
       type: "text",
       required: true,
       value: row?.["name" as keyof T] ?? "",
+    },
+    {
+      name: "id",
+      type: "hidden",
+      required: false,
+      value: row?.["id" as keyof T] ?? "",
+    },
+  ];
+};
+
+export const itemForm = <T>(row?: T): IForm[] => {
+  return [
+    {
+      name: "name",
+      placeholder: "Enter Name",
+      type: "text",
+      required: true,
+      value: row?.["name" as keyof T] ?? "",
+    },
+    {
+      name: "slug",
+      placeholder: "Enter Slug",
+      type: "text",
+      required: true,
+      value: row?.["slug" as keyof T] ?? "",
+    },
+    {
+      name: "description",
+      placeholder: "Enter Description",
+      type: "textarea",
+      required: true,
+      value: row?.["description" as keyof T] ?? "",
+    },
+    {
+      name: "variants",
+      placeholder: "Enter Variants",
+      type: "autocomplete",
+      required: true,
+      value: row?.["variant" as keyof T] ?? "",
+      getOptions: getVariantOptions,
+      multiple: true,
+      hideOnUpdate: true,
+    },
+    {
+      name: "product_id",
+      placeholder: "Enter Product",
+      type: "autocomplete",
+      required: true,
+      value: row?.["product_id" as keyof T] ?? "",
+      getOptions: getProductOptions,
+    },
+    {
+      name: "brand_id",
+      placeholder: "Enter Brands",
+      type: "autocomplete",
+      required: true,
+      value: row?.["brand_id" as keyof T] ?? "",
+      getOptions: getBrandOptions,
+    },
+    {
+      name: "img_urls",
+      type: "multiple",
+      placeholder: "Image URLS",
+      required: false,
+      value: row?.["img_urls" as keyof T] ?? "",
+      isOutputArray: true,
+    },
+    {
+      name: "features",
+      type: "json",
+      placeholder: "Features",
+      required: false,
+      value: row?.["features" as keyof T] ?? "",
     },
     {
       name: "id",

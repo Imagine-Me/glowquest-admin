@@ -17,6 +17,7 @@ import { MultipleField } from "../forms/MultipleField";
 import { parseFormData } from "@/utils/parseForm";
 import { SelectForm } from "../forms/Select";
 import { AutoCompleteForm } from "../forms/Autocomplete";
+import { JsonEditorComponent } from "../forms/JsonEditor";
 
 interface IFormModal {
   open: boolean;
@@ -24,6 +25,7 @@ interface IFormModal {
   form: IForm[];
   title?: string;
   bodyTitle?: string;
+  isUpdate: boolean;
   onSubmit: (formData: string) => Promise<IResponseModel<any>>;
 }
 
@@ -34,12 +36,35 @@ export const FormModal: React.FC<IFormModal> = ({
   bodyTitle,
   title,
   onSubmit,
+  isUpdate,
 }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState("");
   const formElements = useMemo(() => {
     return form.map(
-      ({ name, placeholder, type, required, value, getOptions, multiple }) => {
+      ({
+        name,
+        placeholder,
+        type,
+        required,
+        value: formValue,
+        getOptions,
+        multiple,
+        isOutputArray,
+        valueFormatter,
+        hideOnCreate,
+        hideOnUpdate,
+      }) => {
+        let value = formValue;
+        if (valueFormatter) {
+          value = valueFormatter(formValue);
+        }
+        if (isUpdate && hideOnUpdate) {
+          return null;
+        }
+        if (!isUpdate && hideOnCreate) {
+          return null;
+        }
         switch (type) {
           case "text":
             return (
@@ -87,6 +112,7 @@ export const FormModal: React.FC<IFormModal> = ({
                 name={name}
                 defaultValue={value as string}
                 placeholder={placeholder}
+                isOutputArray={isOutputArray}
               />
             );
           case "select":
@@ -108,6 +134,15 @@ export const FormModal: React.FC<IFormModal> = ({
                 defaultValue={value as string}
                 placeholder={placeholder}
                 multiple={multiple}
+              />
+            );
+          case "json":
+            return (
+              <JsonEditorComponent
+                name={name}
+                data={value as Record<string, unknown>}
+                key={name}
+                placeholder={placeholder}
               />
             );
         }

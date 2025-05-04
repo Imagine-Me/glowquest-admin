@@ -3,7 +3,7 @@ import {
   IPaginatedGenericModel,
   IResponseModel,
 } from "@/interfaces/common.interface";
-import { Paper } from "@mui/material";
+import { debounce, Paper } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import React, { useEffect, useState } from "react";
 
@@ -29,14 +29,14 @@ export const Table = <T,>({
 }: ITableProps<T>) => {
   const [pagination, setPagination] = useState({ page: 0, pageSize: 20 });
   const [total, setTotal] = useState(0);
-  const fetchData = () => {
+  const fetchData = debounce(() => {
     fetchApi(pagination).then(
       ({ data }: IResponseModel<IPaginatedGenericModel<T>>) => {
         setRows(data.items);
         setTotal(data.total);
       }
     );
-  };
+  }, 200);
   useEffect(() => {
     fetchData();
   }, [pagination]);

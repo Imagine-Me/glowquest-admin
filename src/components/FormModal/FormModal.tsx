@@ -169,9 +169,9 @@ export const FormModal: React.FC<IFormModal> = ({
             if (!response.ok) {
               setError(response.data);
             } else {
-              setIsSubmitted(false);
               handleClose();
             }
+            setIsSubmitted(false);
           },
         },
       }}

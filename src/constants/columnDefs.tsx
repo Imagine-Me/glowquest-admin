@@ -5,6 +5,7 @@ import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
 import { ICategoryModel } from "@/interfaces/category.interface";
 import { IBrandModel } from "@/interfaces/brand.interface";
 import { IProductModel } from "@/interfaces/product.interface";
+import { VariantTable } from "@/components/Variant/VariantTable";
 
 export const brandColDefs = (
   onEdit: (id: number) => void,
@@ -71,6 +72,7 @@ export const variantColDefs = (
   { field: "name", headerName: "Name", flex: 1 },
   { field: "type", headerName: "Type" },
   { field: "value", headerName: "Value" },
+  { field: "label", headerName: "Label" },
   {
     field: "",
     headerName: "Actions",
@@ -160,7 +162,7 @@ export const itemColDefs = (
   onEdit: (id: number) => void,
   onDelete: (id: number) => void
 ): GridColDef[] => [
-  { field: "name", headerName: "Name", minWidth: 200 },
+  { field: "name", headerName: "Name", minWidth: 200, flex: 1 },
   { field: "slug", headerName: "Slug", minWidth: 200 },
   { field: "description", headerName: "Description", minWidth: 200 },
   {
@@ -180,11 +182,12 @@ export const itemColDefs = (
     },
   },
   {
-    field: "variant",
-    headerName: "Variant",
+    field: "variants",
+    headerName: "Variants",
     minWidth: 200,
-    valueGetter(value?: IBrandModel) {
-      return value?.name ?? "_";
+    renderCell({ row }) {
+      const value = row.variants;
+      return value ? <VariantTable variants={value} /> : "_";
     },
   },
   {

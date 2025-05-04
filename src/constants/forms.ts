@@ -115,6 +115,13 @@ export const variantForm = <T>(row?: T): IForm[] => {
       value: row?.["value" as keyof T] ?? "",
     },
     {
+      name: "label",
+      placeholder: "Enter Label",
+      type: "text",
+      required: true,
+      value: row?.["label" as keyof T] ?? "",
+    },
+    {
       name: "id",
       type: "hidden",
       required: false,

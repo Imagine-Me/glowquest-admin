@@ -28,7 +28,12 @@ export const PRODUCT_URLS = {
   GET: API_END_POINT + "/product",
   OPTIONS: API_END_POINT + "/product/options",
 };
+
 export const ITEM_URLS = {
   GET: API_END_POINT + "/item",
+  OPTIONS: API_END_POINT + "/item/options",
 };
 
+export const ITEM_DETAILS_URLS = {
+  GET: API_END_POINT + "/item-details",
+};

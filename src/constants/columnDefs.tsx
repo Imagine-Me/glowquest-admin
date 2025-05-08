@@ -6,6 +6,8 @@ import { ICategoryModel } from "@/interfaces/category.interface";
 import { IBrandModel } from "@/interfaces/brand.interface";
 import { IProductModel } from "@/interfaces/product.interface";
 import { VariantTable } from "@/components/Variant/VariantTable";
+import { IItemModel } from "@/interfaces/item.interface";
+import { ISiteModel } from "@/interfaces/site.interface";
 
 export const brandColDefs = (
   onEdit: (id: number) => void,
@@ -189,6 +191,56 @@ export const itemColDefs = (
       const value = row.variants;
       return value ? <VariantTable variants={value} /> : "_";
     },
+  },
+  {
+    field: "",
+    headerName: "Actions",
+    width: 200,
+    renderCell(params) {
+      return (
+        <>
+          <IconButton color="primary" onClick={() => onEdit(params.row.id)}>
+            <EditIcon />
+          </IconButton>
+          <IconButton color="error" onClick={() => onDelete(params.row.id)}>
+            <DeleteOutlineIcon />
+          </IconButton>
+        </>
+      );
+    },
+  },
+];
+
+export const itemDetailsColDefs = (
+  onEdit: (id: number) => void,
+  onDelete: (id: number) => void
+): GridColDef[] => [
+  {
+    field: "item",
+    headerName: "Item",
+    minWidth: 200,
+    valueGetter: (value: IItemModel) => value.name,
+  },
+  {
+    field: "site",
+    headerName: "Site",
+    minWidth: 200,
+    valueGetter: (value: ISiteModel) => value.name,
+  },
+  {
+    field: "price",
+    headerName: "Price",
+    minWidth: 200,
+  },
+  {
+    field: "rating",
+    headerName: "Rating",
+    minWidth: 200,
+  },
+  {
+    field: "total_ratings",
+    headerName: "Total Ratings",
+    minWidth: 200,
   },
   {
     field: "",

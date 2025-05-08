@@ -7,7 +7,8 @@ type FormType =
   | "multiple"
   | "select"
   | "autocomplete"
-  | "json";
+  | "json"
+  | "checkbox";
 
 export interface IForm {
   name: string;

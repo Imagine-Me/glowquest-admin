@@ -5,11 +5,13 @@ import { IForm } from "@/interfaces/form.interface";
 import {
   Alert,
   Button,
+  Checkbox,
   Dialog,
   DialogActions,
   DialogContent,
   DialogContentText,
   DialogTitle,
+  FormControlLabel,
   TextField,
 } from "@mui/material";
 import React, { useMemo, useState } from "react";
@@ -143,6 +145,17 @@ export const FormModal: React.FC<IFormModal> = ({
                 data={value as Record<string, unknown>}
                 key={name}
                 placeholder={placeholder}
+              />
+            );
+          case "checkbox":
+            return (
+              <FormControlLabel
+                control={
+                  <Checkbox defaultChecked={value as boolean} name={name} />
+                }
+                label={placeholder}
+                name={name}
+                key={name}
               />
             );
         }

@@ -3,11 +3,17 @@
 import { ITEM_URLS } from "@/constants/api";
 import { fetchAPI } from "./api";
 import { apiHeader } from "@/utils/common";
+import { SelectOption } from "@/interfaces/common.interface";
 
 export async function getItems(pagination: { page: number; pageSize: number }) {
   return await fetchAPI(
     `${ITEM_URLS.GET}?skip=${pagination.page}&limit=${pagination.pageSize}`
   );
+}
+
+export async function getItemOptions(name?: string) {
+  return (await fetchAPI(`${ITEM_URLS.OPTIONS}/?name=${name ?? ""}`))
+    .data as SelectOption[];
 }
 
 export const saveItem = async (body: string) => {

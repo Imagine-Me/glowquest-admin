@@ -5,6 +5,7 @@ import ReorderIcon from "@mui/icons-material/Reorder";
 import Inventory2Icon from "@mui/icons-material/Inventory2";
 import LanguageIcon from '@mui/icons-material/Language';
 import FolderCopyIcon from '@mui/icons-material/FolderCopy';
+import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
 
 const commonPages = [
   {
@@ -36,6 +37,11 @@ const commonPages = [
     label: "Items",
     url: "/dashboard/item",
     icon: <FolderCopyIcon />,
+  },
+  {
+    label: "Item Details",
+    url: "/dashboard/item-details",
+    icon: <DisplaySettingsIcon />,
   },
 ];
 

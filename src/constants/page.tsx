@@ -3,6 +3,7 @@ import {
   brandColDefs,
   categoryColDefs,
   itemColDefs,
+  itemDetailsColDefs,
   productColDefs,
   siteColDefs,
   variantColDefs,
@@ -10,6 +11,7 @@ import {
 import {
   brandForm,
   categoryForm,
+  itemDetailsForm,
   itemForm,
   productForm,
   siteForm,
@@ -36,6 +38,12 @@ import {
 } from "@/api/product";
 import { deleteSite, getSites, saveSite, updateSite } from "@/api/site";
 import { deleteItem, getItems, saveItem, updateItem } from "@/api/item";
+import {
+  deleteItemDetails,
+  getItemDetails,
+  saveItemDetails,
+  updateItemDetails,
+} from "@/api/itemDetails";
 
 const brandPage: IPageProps = {
   title: "Brand",
@@ -97,6 +105,16 @@ const itemPage: IPageProps = {
   delete: deleteItem,
 };
 
+const itemDetailsPage: IPageProps = {
+  title: "Item-Details",
+  colDefs: itemDetailsColDefs,
+  getData: getItemDetails,
+  form: itemDetailsForm,
+  save: saveItemDetails,
+  update: updateItemDetails,
+  delete: deleteItemDetails,
+};
+
 export const pageProps = [
   brandPage,
   categoryPage,
@@ -104,4 +122,5 @@ export const pageProps = [
   productPage,
   sitePage,
   itemPage,
+  itemDetailsPage,
 ];

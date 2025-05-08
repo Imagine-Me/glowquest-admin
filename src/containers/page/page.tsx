@@ -40,7 +40,9 @@ export default function Page({ page }: Props) {
       // insert
       response = await props.save(body);
     }
-    setReload(true);
+    if (response.ok) {
+      setReload(true);
+    }
     return response;
   };
   const onEdit = async (id: number) => {
@@ -84,7 +86,7 @@ export default function Page({ page }: Props) {
           open={showModal}
           handleClose={onCloseModal}
           form={props.form(selectedRow)}
-          isUpdate = {!!selectedRow}
+          isUpdate={!!selectedRow}
           title={
             selectedRow ? `Update ${props.title}` : `Create ${props.title}`
           }

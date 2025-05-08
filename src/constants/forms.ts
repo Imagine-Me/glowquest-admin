@@ -4,6 +4,8 @@ import { getCategoryOptions } from "@/api/category";
 import { getBrandOptions } from "@/api/brand";
 import { getProductOptions } from "@/api/product";
 import { getVariantOptions } from "@/api/variant";
+import { getSiteOptions } from "@/api/site";
+import { getItemOptions } from "@/api/item";
 
 export const brandForm = <T>(row?: T): IForm[] => {
   return [
@@ -223,7 +225,7 @@ export const itemForm = <T>(row?: T): IForm[] => {
     {
       name: "description",
       placeholder: "Enter Description",
-      type: "textarea",
+      type: "json",
       required: true,
       value: row?.["description" as keyof T] ?? "",
     },
@@ -267,6 +269,47 @@ export const itemForm = <T>(row?: T): IForm[] => {
       placeholder: "Features",
       required: false,
       value: row?.["features" as keyof T] ?? "",
+    },
+    {
+      name: "id",
+      type: "hidden",
+      required: false,
+      value: row?.["id" as keyof T] ?? "",
+    },
+  ];
+};
+
+export const itemDetailsForm = <T>(row?: T): IForm[] => {
+  return [
+    {
+      name: "site",
+      placeholder: "Select site",
+      type: "autocomplete",
+      required: true,
+      value: row?.["site" as keyof T] ?? "",
+      getOptions: getSiteOptions,
+    },
+    {
+      name: "site_link",
+      placeholder: "Enter link",
+      type: "text",
+      required: true,
+      value: row?.["site_link" as keyof T] ?? "",
+    },
+    {
+      name: "item",
+      placeholder: "Select item",
+      type: "autocomplete",
+      required: true,
+      value: row?.["item" as keyof T] ?? "",
+      getOptions: getItemOptions,
+    },
+    {
+      name: "shouldUpdate",
+      placeholder: "Update details",
+      type: "checkbox",
+      required: true,
+      value: row?.["shouldUpdate" as keyof T] ?? "",
     },
     {
       name: "id",

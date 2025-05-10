@@ -1,5 +1,5 @@
 import { IVariantModel } from "@/interfaces/variant.interface";
-import { Box } from "@mui/material";
+import { Box, Tooltip } from "@mui/material";
 import Link from "next/link";
 import React from "react";
 
@@ -14,7 +14,7 @@ export const ColorVariant: React.FC<IColorVariant> = ({
   size = "lg",
 }) => {
   const boxSize = size === "sm" ? 20 : 35;
-  return (
+  return (<Tooltip title={`${variant.label} - ${variant.name}`}>
     <Link href={link ?? "#"}>
       <Box
         sx={{
@@ -25,5 +25,6 @@ export const ColorVariant: React.FC<IColorVariant> = ({
         }}
       ></Box>
     </Link>
+  </Tooltip>
   );
 };

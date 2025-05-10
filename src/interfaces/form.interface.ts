@@ -22,4 +22,5 @@ export interface IForm {
   hideOnUpdate?: boolean;
   hideOnCreate?: boolean;
   isOutputArray?: boolean;
+  dependedFields?: string[]
 }

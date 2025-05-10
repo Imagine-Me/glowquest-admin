@@ -14,7 +14,7 @@ import {
   FormControlLabel,
   TextField,
 } from "@mui/material";
-import React, { useMemo, useState } from "react";
+import React, { useMemo, useRef, useState } from "react";
 import { MultipleField } from "../forms/MultipleField";
 import { parseFormData } from "@/utils/parseForm";
 import { SelectForm } from "../forms/Select";
@@ -42,6 +42,8 @@ export const FormModal: React.FC<IFormModal> = ({
 }) => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [error, setError] = useState("");
+
+  const formRef = useRef<HTMLFormElement>(null);
   const formElements = useMemo(() => {
     return form.map(
       ({
@@ -56,6 +58,7 @@ export const FormModal: React.FC<IFormModal> = ({
         valueFormatter,
         hideOnCreate,
         hideOnUpdate,
+        dependedFields,
       }) => {
         let value = formValue;
         if (valueFormatter) {
@@ -130,12 +133,14 @@ export const FormModal: React.FC<IFormModal> = ({
           case "autocomplete":
             return (
               <AutoCompleteForm
+                formRef={formRef}
                 key={name}
                 fetchData={getOptions!}
                 name={name}
                 defaultValue={value as string}
                 placeholder={placeholder}
                 multiple={multiple}
+                dependedFields={dependedFields}
               />
             );
           case "json":
@@ -172,6 +177,7 @@ export const FormModal: React.FC<IFormModal> = ({
       slotProps={{
         paper: {
           component: "form",
+          ref: formRef,
           onSubmit: async (event: React.FormEvent<HTMLFormElement>) => {
             event.preventDefault();
             setIsSubmitted(true);

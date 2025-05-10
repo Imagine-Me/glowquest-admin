@@ -10,6 +10,8 @@ interface IAutoCompleteFormProps {
     value: string
   ) => Promise<Array<{ label: string; value: string }>>;
   multiple?: boolean;
+  dependedFields?: string[];
+  formRef?: React.RefObject<HTMLFormElement | null>;
 }
 
 export const AutoCompleteForm: React.FC<IAutoCompleteFormProps> = ({
@@ -18,6 +20,8 @@ export const AutoCompleteForm: React.FC<IAutoCompleteFormProps> = ({
   placeholder,
   fetchData,
   multiple = false,
+  dependedFields,
+  formRef,
 }) => {
   let parsedValue = defaultValue;
   try {
@@ -62,7 +66,15 @@ export const AutoCompleteForm: React.FC<IAutoCompleteFormProps> = ({
   }, [options, defaultValue]);
 
   useEffect(() => {
-    fetchOption(inputValue, setOptions);
+    let referenceData = "";
+    if (formRef?.current && dependedFields) {
+      const form = new FormData(formRef.current);
+      referenceData = dependedFields.reduce((acc, val) => {
+        const data = form.get(val) ?? "";
+        return `${acc}&${val}=${data}`;
+      }, "");
+    }
+    fetchOption(`${inputValue}${referenceData}`, setOptions);
   }, [inputValue]);
 
   const outputValue = useMemo(() => {

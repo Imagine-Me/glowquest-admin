@@ -303,6 +303,7 @@ export const itemDetailsForm = <T>(row?: T): IForm[] => {
       required: true,
       value: row?.["item" as keyof T] ?? "",
       getOptions: getItemOptions,
+      dependedFields: ["site"],
     },
     {
       name: "shouldUpdate",

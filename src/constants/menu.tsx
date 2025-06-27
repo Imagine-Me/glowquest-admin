@@ -6,6 +6,7 @@ import Inventory2Icon from "@mui/icons-material/Inventory2";
 import LanguageIcon from '@mui/icons-material/Language';
 import FolderCopyIcon from '@mui/icons-material/FolderCopy';
 import DisplaySettingsIcon from '@mui/icons-material/DisplaySettings';
+import BookIcon from '@mui/icons-material/Book';
 
 const commonPages = [
   {
@@ -42,6 +43,11 @@ const commonPages = [
     label: "Item Details",
     url: "/dashboard/item-details",
     icon: <DisplaySettingsIcon />,
+  },
+  {
+    label: "Blogs",
+    url: "/dashboard/blog",
+    icon: <BookIcon />,
   },
 ];
 

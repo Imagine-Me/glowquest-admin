@@ -20,7 +20,7 @@ export default function Page({ page }: Props) {
   const [rows, setRows] = useState<unknown[]>([]);
 
   const selectedRow = useMemo(() => {
-    return rows.find((row: any) => row.id === selectedRowId);
+    return rows.find((row: unknown) => (row as { id: number }).id === selectedRowId);
   }, [rows, selectedRowId]);
 
   if (!props) {
@@ -29,7 +29,7 @@ export default function Page({ page }: Props) {
 
   const onFormSubmit = async (body: string) => {
     let response: {
-      data: any;
+      data: unknown;
       status: number;
       ok: boolean;
     };

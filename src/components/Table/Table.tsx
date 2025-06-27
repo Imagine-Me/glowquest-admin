@@ -1,7 +1,6 @@
 "use client";
 import {
   IPaginatedGenericModel,
-  IResponseModel,
 } from "@/interfaces/common.interface";
 import { debounce, Paper } from "@mui/material";
 import { DataGrid, GridColDef } from "@mui/x-data-grid";
@@ -12,7 +11,7 @@ interface ITableProps<T> {
   fetchApi: (pagination: {
     page: number;
     pageSize: number;
-  }) => Promise<{ data: any; status: number; ok: boolean }>;
+  }) => Promise<{ data: unknown; status: number; ok: boolean }>;
   reload: boolean;
   setReload: (value: boolean) => void;
   rows: T[];
@@ -31,14 +30,15 @@ export const Table = <T,>({
   const [total, setTotal] = useState(0);
   const fetchData = debounce(() => {
     fetchApi(pagination).then(
-      ({ data }: IResponseModel<IPaginatedGenericModel<T>>) => {
-        setRows(data.items);
-        setTotal(data.total);
+      ({ data }) => {
+        setRows((data as IPaginatedGenericModel<T>).items);
+        setTotal((data as IPaginatedGenericModel<T>).total);
       }
     );
   }, 200);
   useEffect(() => {
     fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [pagination]);
 
   useEffect(() => {
@@ -46,6 +46,7 @@ export const Table = <T,>({
       fetchData();
       setReload(false);
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reload]);
   return (
     <Paper sx={{ width: "100%", my: 2 }}>

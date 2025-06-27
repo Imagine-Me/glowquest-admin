@@ -15,7 +15,7 @@ interface IDeleteModalProps<T> {
   onClose: () => void;
   row: T;
   deleteItem: (id: number) => Promise<{
-    data: any;
+    data: unknown;
     status: number;
     ok: boolean;
   }>;

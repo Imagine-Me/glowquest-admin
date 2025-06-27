@@ -1,5 +1,5 @@
 import { IForm } from "@/interfaces/form.interface";
-import { getVariantTypeOptions } from "./data";
+import { getVariantTypeOptions } from "../data";
 import { getCategoryOptions } from "@/api/category";
 import { getBrandOptions } from "@/api/brand";
 import { getProductOptions } from "@/api/product";

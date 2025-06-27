@@ -1,16 +1,14 @@
 import { Box } from "@mui/material";
 import React, { ReactNode } from "react";
 
-interface DashboardLayoutProps {
+interface ItemDetailsLayoutProps {
     children: ReactNode;
 }
 
-const DashboardLayout = ({ children }: DashboardLayoutProps) => {
+export default function ItemDetailsLayout({ children }: ItemDetailsLayoutProps) {
     return (
         <Box sx={{ p: 3 }}>
             {children}
         </Box>
     );
-};
-
-export default DashboardLayout;
+}

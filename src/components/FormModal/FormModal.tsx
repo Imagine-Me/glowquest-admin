@@ -28,7 +28,7 @@ interface IFormModal {
   title?: string;
   bodyTitle?: string;
   isUpdate: boolean;
-  onSubmit: (formData: string) => Promise<IResponseModel<any>>;
+  onSubmit: (formData: string) => Promise<IResponseModel<unknown>>;
 }
 
 export const FormModal: React.FC<IFormModal> = ({
@@ -166,6 +166,7 @@ export const FormModal: React.FC<IFormModal> = ({
         }
       }
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [form]);
 
   return (
@@ -186,7 +187,7 @@ export const FormModal: React.FC<IFormModal> = ({
               JSON.stringify(parseFormData(formData))
             );
             if (!response.ok) {
-              setError(response.data);
+              setError(response.data as string);
             } else {
               handleClose();
             }

@@ -16,7 +16,7 @@ import {
   productForm,
   siteForm,
   variantForm,
-} from "./forms";
+} from "./forms/forms";
 import { IPageProps } from "@/interfaces/common.interface";
 import {
   deleteCategory,

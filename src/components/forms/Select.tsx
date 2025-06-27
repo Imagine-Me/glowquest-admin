@@ -18,6 +18,7 @@ export const SelectForm = ({
   const [options, setOptions] = useState<SelectOption[]>([]);
   useEffect(() => {
     fetchData().then(setOptions);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
     <Box sx={{ minWidth: 120, mt: 1 }}>
@@ -30,7 +31,7 @@ export const SelectForm = ({
           label={placeholder}
         >
           {options.map((option) => (
-            <MenuItem value={option.value}>{option.label}</MenuItem>
+            <MenuItem key={option.value} value={option.value}>{option.label}</MenuItem>
           ))}
         </Select>
       </FormControl>

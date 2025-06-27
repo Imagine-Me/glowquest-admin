@@ -23,7 +23,11 @@ export default function Home() {
     setLoading(true);
     setError("");
     const data = { email, password };
-    const response = await login(JSON.stringify(data));
+    const response = await login(JSON.stringify(data)) as {
+      data: { access_token: string, detail: string };
+      status: number;
+      ok: boolean;
+    };
     console.log(response);
     sessionStorage.setItem("token", response.data.access_token);
     if (response.ok) {

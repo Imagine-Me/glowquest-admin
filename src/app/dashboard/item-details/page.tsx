@@ -101,9 +101,9 @@ export default function ItemDetailsPage() {
   const onFormSubmit = async (body: string) => {
     let response: IResponseModel<IItemDetailsRow>;
     if (selectedRowId) {
-      response = await props.update(body);
+      response = await props.update(body) as IResponseModel<IItemDetailsRow>;
     } else {
-      response = await props.save(body);
+      response = await props.save(body) as IResponseModel<IItemDetailsRow>;
     }
     if (response.ok) {
       setReload(true);

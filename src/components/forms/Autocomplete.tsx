@@ -1,6 +1,6 @@
 import { SelectOption } from "@/interfaces/common.interface";
 import { Autocomplete, debounce, TextField } from "@mui/material";
-import { useEffect, useId, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 interface IAutoCompleteFormProps {
   name: string;
@@ -23,10 +23,6 @@ export const AutoCompleteForm: React.FC<IAutoCompleteFormProps> = ({
   dependedFields,
   formRef,
 }) => {
-  let parsedValue = defaultValue;
-  try {
-    parsedValue = JSON.parse(defaultValue ?? "");
-  } catch {}
   const [value, setValue] = useState<SelectOption | SelectOption[] | null>(
     null
   );
@@ -63,6 +59,8 @@ export const AutoCompleteForm: React.FC<IAutoCompleteFormProps> = ({
         }
       }
     }
+    
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [options, defaultValue]);
 
   useEffect(() => {
@@ -75,6 +73,7 @@ export const AutoCompleteForm: React.FC<IAutoCompleteFormProps> = ({
       }, "");
     }
     fetchOption(`${inputValue}${referenceData}`, setOptions);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [inputValue]);
 
   const outputValue = useMemo(() => {
@@ -89,6 +88,7 @@ export const AutoCompleteForm: React.FC<IAutoCompleteFormProps> = ({
       return value.value;
     }
     return "";
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   const autoCompleteValue = useMemo(() => {
@@ -96,6 +96,7 @@ export const AutoCompleteForm: React.FC<IAutoCompleteFormProps> = ({
       return multiple ? [] : null;
     }
     return value;
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   return (

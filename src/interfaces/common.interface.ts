@@ -25,19 +25,27 @@ export interface IPageProps {
     onEdit: (id: number) => void,
     onDelete: (id: number) => void
   ) => GridColDef[];
-  getData: <T>(params: { 
-    page: number; 
-    pageSize: number;
-    filters?: {
-      itemName?: string;
-      siteId?: number;
-      priceNull?: boolean;
-    }
-  }) => Promise<IResponseModel<IPaginatedGenericModel<T>>>;
+  getData: (pagination: { page: number; pageSize: number,filters?:{ itemName?: string | undefined; siteId?: number | undefined; priceNull?: boolean | undefined; } }) => Promise<{
+    data: unknown;
+    status: number;
+    ok: boolean;
+  }>;
   form: <T>(row?: T) => IForm[];
-  update: <T>(body: string) => Promise<IResponseModel<T>>;
-  save: <T>(body: string) => Promise<IResponseModel<T>>;
-  delete: <T>(id: number) => Promise<IResponseModel<T>>;
+  update: (body: string) => Promise<{
+    data: unknown;
+    status: number;
+    ok: boolean;
+  }>;
+  save: (body: string) => Promise<{
+    data: unknown;
+    status: number;
+    ok: boolean;
+  }>;
+  delete: (id: number) => Promise<{
+    data: unknown;
+    status: number;
+    ok: boolean;
+  }>;
 }
 
 export type IPaginatedGenericModel<T> = IPagination<T>;

@@ -31,6 +31,7 @@ export const MultipleField: React.FC<IMultipleProps> = ({
       return JSON.stringify(value);
     }
     return value.join(",");
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [value]);
 
   return (

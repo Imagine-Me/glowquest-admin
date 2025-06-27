@@ -8,6 +8,7 @@ import {
   siteColDefs,
   variantColDefs,
 } from "./columnDefs";
+import { blogColDefs } from "./columnDefs";
 import {
   brandForm,
   categoryForm,
@@ -44,6 +45,13 @@ import {
   saveItemDetails,
   updateItemDetails,
 } from "@/api/itemDetails";
+import {
+  deleteBlog,
+  getBlogs,
+  saveBlog,
+  updateBlog,
+} from "@/api/blog";
+import { blogForm } from "./forms/blogForms";
 
 const brandPage: IPageProps = {
   title: "Brand",
@@ -115,6 +123,16 @@ const itemDetailsPage: IPageProps = {
   delete: deleteItemDetails,
 };
 
+const blogPage: IPageProps = {
+  title: "Blog",
+  colDefs: blogColDefs,
+  getData: getBlogs,
+  form: blogForm,
+  save: saveBlog,
+  update: updateBlog,
+  delete: deleteBlog,
+};
+
 export const pageProps = [
   brandPage,
   categoryPage,
@@ -123,4 +141,5 @@ export const pageProps = [
   sitePage,
   itemPage,
   itemDetailsPage,
+  blogPage,
 ];

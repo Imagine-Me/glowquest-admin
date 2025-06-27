@@ -211,6 +211,38 @@ export const itemColDefs = (
   },
 ];
 
+
+export const blogColDefs = (
+  onEdit: (id: number) => void,
+  onDelete: (id: number) => void
+): GridColDef[] => [
+  { field: "title", headerName: "Title", minWidth: 200, flex: 1 },
+  { field: "slug", headerName: "Slug", minWidth: 200 },
+  { 
+    field: "is_published", 
+    headerName: "Published", 
+    type: "boolean",
+    width: 120 
+  },
+  {
+    field: "",
+    headerName: "Actions",
+    width: 200,
+    renderCell(params) {
+      return (
+        <>
+          <IconButton color="primary" onClick={() => onEdit(params.row.id)}>
+            <EditIcon />
+          </IconButton>
+          <IconButton color="error" onClick={() => onDelete(params.row.id)}>
+            <DeleteOutlineIcon />
+          </IconButton>
+        </>
+      );
+    },
+  },
+];
+
 export const itemDetailsColDefs = (
   onEdit: (id: number) => void,
   onDelete: (id: number) => void

@@ -22,7 +22,7 @@ export default function BlogPage() {
         setSelectedRow(null)
     }
     const handleEdit = (id: number) => {
-
+        console.log(id)
     }
     const handleDelete = () => {
         setDeleteOpen(true)

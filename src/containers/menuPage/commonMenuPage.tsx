@@ -11,7 +11,7 @@ interface Props {
   page: string;
 }
 
-export default function Page({ page }: Props) {
+export default function CommonMenuPage({ page }: Props) {
   const props = pageProps.find(({ title }) => title.toLowerCase() === page);
   const [showModal, setShowModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);

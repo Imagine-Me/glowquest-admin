@@ -1,4 +1,4 @@
-import Page from "@/containers/page/page";
+import CommonMenuPage from "@/containers/menuPage/commonMenuPage";
 
 interface IPageProps {
   /**
@@ -10,5 +10,5 @@ interface IPageProps {
 
 export default async function Brand({ params }: IPageProps) {
   const { page } = await params;
-  return <Page page={page} />;
+  return <CommonMenuPage page={page} />;
 }

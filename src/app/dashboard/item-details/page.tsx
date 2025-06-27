@@ -1,15 +1,16 @@
 "use client";
 
-import { Box, Button, TextField, Checkbox, FormControlLabel, Autocomplete, CircularProgress } from "@mui/material";
-import { useMemo, useState } from "react";
+import { Box, Button } from "@mui/material";
+import { useMemo, useState, useEffect } from "react";
 import { SelectOption } from "@/interfaces/common.interface";
 import { getSiteOptions } from "@/api/site";
-import { Table } from "@/components/Table/Table";
 import { FormModal } from "@/components/FormModal/FormModal";
 import DeleteModal from "@/components/DeleteModal/DeleteModal";
 import { pageProps } from "@/constants/page";
 import { IResponseModel } from "@/interfaces/common.interface";
 import { getUniqueItemOptions } from "@/api/item";
+import { FiltersContainer } from "@/containers/item-details/FiltersContainer";
+import { TableContainer } from "@/containers/item-details/TableContainer";
 
 interface IItemDetailsRow {
   id: number;
@@ -30,10 +31,34 @@ export default function ItemDetailsPage() {
     siteId: undefined as number | undefined,
     priceNull: undefined as boolean | undefined,
   });
+  const [allItemOptions, setAllItemOptions] = useState<SelectOption[]>([]);
+  const [allSiteOptions, setAllSiteOptions] = useState<SelectOption[]>([]);
   const [itemOptions, setItemOptions] = useState<SelectOption[]>([]);
   const [siteOptions, setSiteOptions] = useState<SelectOption[]>([]);
   const [loadingItems, setLoadingItems] = useState(false);
   const [loadingSites, setLoadingSites] = useState(false);
+
+  useEffect(() => {
+    // Load initial data
+    const loadInitialData = async () => {
+      setLoadingItems(true);
+      setLoadingSites(true);
+      try {
+        const [items, sites] = await Promise.all([
+          getUniqueItemOptions(''),
+          getSiteOptions('')
+        ]);
+        setAllItemOptions(items);
+        setItemOptions(items);
+        setAllSiteOptions(sites);
+        setSiteOptions(sites);
+      } finally {
+        setLoadingItems(false);
+        setLoadingSites(false);
+      }
+    };
+    loadInitialData();
+  }, []);
 
   const selectedRow = useMemo(() => {
     return rows.find((row) => row.id === selectedRowId);
@@ -44,23 +69,25 @@ export default function ItemDetailsPage() {
   }
 
   const handleItemSearch = async (searchText: string) => {
-    setLoadingItems(true);
-    try {
-      const response = await getUniqueItemOptions(searchText);
-      setItemOptions(response);
-    } finally {
-      setLoadingItems(false);
+    if (!searchText) {
+      setItemOptions(allItemOptions);
+      return;
     }
+    const filtered = allItemOptions.filter(option => 
+      option.label.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setItemOptions(filtered);
   };
 
   const handleSiteSearch = async (searchText: string) => {
-    setLoadingSites(true);
-    try {
-      const options = await getSiteOptions(searchText);
-      setSiteOptions(options);
-    } finally {
-      setLoadingSites(false);
+    if (!searchText) {
+      setSiteOptions(allSiteOptions);
+      return;
     }
+    const filtered = allSiteOptions.filter(option => 
+      option.label.toLowerCase().includes(searchText.toLowerCase())
+    );
+    setSiteOptions(filtered);
   };
 
   const handleFilterChange = (name: string, value: string | number | boolean | null | undefined) => {
@@ -91,87 +118,26 @@ export default function ItemDetailsPage() {
           Create {props.title}
         </Button>
       </Box>
-      <Box display="flex" gap={2} mb={2}>
-        <Autocomplete
-          freeSolo
-          options={itemOptions}
-          loading={loadingItems}
-          onInputChange={(_, value) => {
-            handleItemSearch(value);
-          }}
-          onChange={(_, value) => {
-            if (!value || typeof value === 'string') return
-            handleFilterChange('itemName', value.value)
-          }}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Item Name"
-              size="small"
-              InputProps={{
-                ...params.InputProps,
-                endAdornment: (
-                  <>
-                    {loadingItems ? <CircularProgress color="inherit" size={20} /> : null}
-                    {params.InputProps.endAdornment}
-                  </>
-                ),
-              }}
-            />
-          )}
-          sx={{ minWidth: 200 }}
-        />
-        <Autocomplete
-          options={siteOptions}
-          loading={loadingSites}
-          getOptionLabel={(option) => option.label}
-          onChange={(_, value) => handleFilterChange('siteId', value?.value)}
-          onInputChange={(_, value) => handleSiteSearch(value)}
-          renderInput={(params) => (
-            <TextField
-              {...params}
-              label="Site"
-              size="small"
-              InputProps={{
-                ...params.InputProps,
-                endAdornment: (
-                  <>
-                    {loadingSites ? <CircularProgress color="inherit" size={20} /> : null}
-                    {params.InputProps.endAdornment}
-                  </>
-                ),
-              }}
-            />
-          )}
-          sx={{ minWidth: 200 }}
-        />
-        <FormControlLabel
-          control={
-            <Checkbox
-              name="priceNull"
-              checked={filters.priceNull || false}
-              onChange={(e) => handleFilterChange('priceNull', e.target.checked)}
-            />
-          }
-          label="Price is null"
-        />
-      </Box>
-      <Table
-        colDefs={props.colDefs(
-          (id: number) => {
-            setSelectedRowId(id);
-            setShowModal(true);
-          },
-          (id: number) => {
-            setSelectedRowId(id);
-            setShowDeleteModal(true);
-          }
-        )}
-        fetchApi={(pagination) => props.getData({ ...pagination, filters })}
+      <FiltersContainer
+        itemOptions={itemOptions}
+        siteOptions={siteOptions}
+        loadingItems={loadingItems}
+        loadingSites={loadingSites}
+        filters={filters}
+        onItemSearch={handleItemSearch}
+        onSiteSearch={handleSiteSearch}
+        onFilterChange={handleFilterChange}
+      />
+      <TableContainer
         reload={reload}
         setReload={setReload}
         rows={rows}
         setRows={setRows}
+        filters={filters}
+        setSelectedRowId={setSelectedRowId}
+        setShowModal={setShowModal}
+        setShowDeleteModal={setShowDeleteModal}
+        props={props}
       />
       {showModal && (
         <FormModal

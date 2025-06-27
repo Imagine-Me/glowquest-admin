@@ -1,3 +1,10 @@
+export interface IItemDetailsRow {
+  id: number;
+  name: string;
+  siteId?: number;
+  price?: number | null;
+}
+
 export interface IItemModel {
   name: string;
   slug: string;

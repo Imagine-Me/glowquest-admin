@@ -7,7 +7,6 @@ import { getSiteOptions } from "@/api/site";
 import { FormModal } from "@/components/FormModal/FormModal";
 import DeleteModal from "@/components/DeleteModal/DeleteModal";
 import { pageProps } from "@/constants/page";
-import { IResponseModel } from "@/interfaces/common.interface";
 import { getUniqueItemOptions } from "@/api/item";
 import { FiltersContainer } from "@/containers/item-details/FiltersContainer";
 import { TableContainer } from "@/containers/item-details/TableContainer";
@@ -97,18 +96,28 @@ export default function ItemDetailsPage() {
     }));
     setReload(true);
   };
-
   const onFormSubmit = async (body: string) => {
-    let response: IResponseModel<IItemDetailsRow>;
+    let response: {
+      data: unknown;
+      status: number;
+      ok: boolean;
+    };
     if (selectedRowId) {
-      response = await props.update(body) as IResponseModel<IItemDetailsRow>;
+      // update
+      response = await props.update(body);
     } else {
-      response = await props.save(body) as IResponseModel<IItemDetailsRow>;
+      // insert
+      response = await props.save(body);
     }
     if (response.ok) {
       setReload(true);
     }
     return response;
+  };
+  const onRowDelete = async () => {
+    setSelectedRowId(null);
+    setShowDeleteModal(false);
+    setReload(true);
   };
 
   return (
@@ -154,11 +163,7 @@ export default function ItemDetailsPage() {
       )}
       {showDeleteModal && (
         <DeleteModal
-          onClose={() => {
-            setSelectedRowId(null);
-            setShowDeleteModal(false);
-            setReload(true);
-          }}
+          onClose={onRowDelete}
           open={showDeleteModal}
           row={selectedRow}
           deleteItem={props.delete}

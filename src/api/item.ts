@@ -16,6 +16,12 @@ export async function getItemOptions(name?: string) {
     .data as SelectOption[];
 }
 
+
+export async function getUniqueItemOptions(name?: string) {
+  return (await fetchAPI(`${ITEM_URLS.UNIQUE_OPTIONS}/?name=${name ?? ""}`))
+    .data as SelectOption[];
+}
+
 export const saveItem = async (body: string) => {
   return await fetchAPI(ITEM_URLS.GET, {
     body,

@@ -2,7 +2,7 @@
 
 import { redirect } from "next/navigation";
 
-export const fetchAPI = async (url: string, settings?: RequestInit) => {
+export const fetchAPI = async <T>(url: string, settings?: RequestInit) => {
   console.log(settings)
   const response = await fetch(url, {
     headers: {
@@ -14,7 +14,7 @@ export const fetchAPI = async (url: string, settings?: RequestInit) => {
     redirect(`/`);
   }
   return {
-    data: await response.json(),
+    data: await response.json() as T,
     status: response.status,
     ok: response.ok,
   };

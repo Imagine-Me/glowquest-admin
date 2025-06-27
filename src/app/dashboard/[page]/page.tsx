@@ -1,4 +1,3 @@
-import { pageProps } from "@/constants/page";
 import Page from "@/containers/page/page";
 
 interface IPageProps {

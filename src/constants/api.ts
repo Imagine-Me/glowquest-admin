@@ -32,6 +32,7 @@ export const PRODUCT_URLS = {
 export const ITEM_URLS = {
   GET: API_END_POINT + "/item",
   OPTIONS: API_END_POINT + "/item/options",
+  UNIQUE_OPTIONS: API_END_POINT + "/item/unique-options",
 };
 
 export const ITEM_DETAILS_URLS = {

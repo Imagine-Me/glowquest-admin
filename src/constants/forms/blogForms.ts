@@ -3,11 +3,11 @@ import { IForm } from "@/interfaces/form.interface";
 export const blogForm = <T>(row?: T): IForm[] => {
   return [
     {
-      name: "title",
+      name: "name",
       placeholder: "Enter Blog Title",
       type: "text",
       required: true,
-      value: row?.["title" as keyof T] ?? "",
+      value: row?.["name" as keyof T] ?? "",
     },
     {
       name: "slug",
@@ -17,11 +17,11 @@ export const blogForm = <T>(row?: T): IForm[] => {
       value: row?.["slug" as keyof T] ?? "",
     },
     {
-      name: "image_url",
+      name: "img_url",
       placeholder: "Enter Image URL",
       type: "text",
       required: false,
-      value: row?.["image_url" as keyof T] ?? "",
+      value: row?.["img_url" as keyof T] ?? "",
     },
     {
       name: "is_published",

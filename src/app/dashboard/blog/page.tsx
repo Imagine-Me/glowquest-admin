@@ -22,11 +22,42 @@ export default function BlogPage() {
         setSelectedRow(null)
     }
     const handleEdit = (id: number) => {
-        console.log(id)
+        const selectedRow = rows.find((val) => (val as IBlog).id == id)
+        setSelectedRow(selectedRow as IBlog)
+        setOpen(true)
     }
-    const handleDelete = () => {
+    const handleDelete = (id: number) => {
+        const selectedRow = rows.find((val) => (val as IBlog).id == id)
+        setSelectedRow(selectedRow as IBlog)
         setDeleteOpen(true)
     }
+
+    const onDelete = async (id:number) => {
+        const response = await props!.delete(id)
+        setReload(true)
+        return response
+    }
+
+    const onFormSubmit = async (body:string) => {
+        const response: {
+            data: unknown;
+            status: number;
+            ok: boolean;
+        } = {
+            data: null,
+            status: 200,
+            ok: true
+        }
+        if (selectedRow) {
+            response.data = await props!.update(body)
+        } else {
+            response.data = await props!.save(body)
+        }
+        setReload(true)
+        handleClose()
+        return response
+    }
+
 
 
     if (!props) {
@@ -54,7 +85,7 @@ export default function BlogPage() {
             open={open}
             handleClose={handleClose}
             form={props.form(selectedRow)}
-            onSubmit={selectedRow ? props.update : props.save}
+            onSubmit={onFormSubmit}
             isUpdate={!!selectedRow}
             title={selectedRow ? `Update ${props.title}` : `Create ${props.title}`}
         />
@@ -62,7 +93,7 @@ export default function BlogPage() {
         <DeleteModal
             open={deleteOpen}
             onClose={() => setDeleteOpen(false)}
-            deleteItem={props.delete}
+            deleteItem={onDelete}
             row={selectedRow!}
         />
     </>

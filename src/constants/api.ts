@@ -38,3 +38,8 @@ export const ITEM_URLS = {
 export const ITEM_DETAILS_URLS = {
   GET: API_END_POINT + "/item-details",
 };
+
+
+export const BLOG_URL = {
+  GET: API_END_POINT + "/blog",
+};

@@ -42,4 +42,5 @@ export const ITEM_DETAILS_URLS = {
 
 export const BLOG_URL = {
   GET: API_END_POINT + "/blog",
+  UPDATE_CONTENT: API_END_POINT + "/blog/content",
 };

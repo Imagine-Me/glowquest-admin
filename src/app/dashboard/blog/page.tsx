@@ -63,7 +63,7 @@ export default function BlogPage() {
     if (!props) {
         return "Not Available";
     }
-    return <>
+    return <Box sx={{p: 3}}>
         <Box display="flex" justifyContent="end" mb={2}>
             <Button variant="contained" onClick={() => setOpen(true)}>
                 Create Blog
@@ -96,5 +96,5 @@ export default function BlogPage() {
             deleteItem={onDelete}
             row={selectedRow!}
         />
-    </>
+    </Box>
 }

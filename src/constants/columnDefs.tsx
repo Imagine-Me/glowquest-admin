@@ -1,4 +1,4 @@
-import { IconButton } from "@mui/material";
+import { Button, IconButton } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import EditIcon from "@mui/icons-material/Edit";
 import DeleteOutlineIcon from "@mui/icons-material/DeleteOutline";
@@ -8,6 +8,7 @@ import { IProductModel } from "@/interfaces/product.interface";
 import { VariantTable } from "@/components/Variant/VariantTable";
 import { IItemModel } from "@/interfaces/item.interface";
 import { ISiteModel } from "@/interfaces/site.interface";
+import Link from "next/link";
 
 export const brandColDefs = (
   onEdit: (id: number) => void,
@@ -241,6 +242,11 @@ export const blogColDefs = (
       renderCell(params) {
         return (
           <>
+            <Link href={`/dashboard/blog/${params.row.id}`}>
+              <Button>
+                Edit Blog
+              </Button>
+            </Link>
             <IconButton color="primary" onClick={() => onEdit(params.row.id)}>
               <EditIcon />
             </IconButton>

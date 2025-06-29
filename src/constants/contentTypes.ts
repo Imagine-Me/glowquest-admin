@@ -10,11 +10,14 @@ export const CONTENT_SAMPLES: ContentItem[] = [
     { type: 'h5', value: 'Header 5' },
     { type: 'h6', value: 'Header 6' },
     { type: 'p', value: 'Sample paragraph text' },
-    { 
+    {
         type: 'image',
         value: '/sample-image.jpeg',
-        alt: 'Sample image',
-        width: 200,
-        height: 200
+        image: {
+            alt: 'Sample image',
+            width: 200,
+            height: 200,
+            position: 'center',
+        }
     }
 ];

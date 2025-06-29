@@ -1,27 +1,30 @@
 'use client'
 
 import { useState } from 'react';
-import { Card, IconButton, TextField, Button } from "@mui/material";
+import { Card, IconButton, Button, Box } from "@mui/material";
 import DeleteIcon from '@mui/icons-material/Delete';
 import { ContentItem } from "@/interfaces/content.interface";
+import { ContentForm } from './ContentForm';
 
 interface ContentPreviewContainerProps {
     contentItems: ContentItem[];
+    editingIndex: number | null;
+    setEditingIndex: React.Dispatch<React.SetStateAction<number | null>>;
     onDelete: (index: number) => void;
     onUpdate: (index: number, updatedItem: ContentItem) => void;
 }
 
-export function ContentPreviewContainer({ 
+export function ContentPreviewContainer({
     contentItems,
+    setEditingIndex,
+    editingIndex,
     onDelete,
     onUpdate
 }: ContentPreviewContainerProps) {
-    const [editingIndex, setEditingIndex] = useState<number | null>(null);
     const [editedItem, setEditedItem] = useState<ContentItem | null>(null);
-
     const handleEditClick = (index: number) => {
         setEditingIndex(index);
-        setEditedItem({...contentItems[index]});
+        setEditedItem({ ...contentItems[index] });
     };
 
     const handleUpdate = () => {
@@ -31,54 +34,39 @@ export function ContentPreviewContainer({
         }
     };
 
-    const getFieldType = (key: string) => {
-        if (key === 'width' || key === 'height') return 'number';
-        return 'text';
-    };
-
     return (
         <Card sx={{ height: '100vh', overflowY: 'auto', p: 2 }}>
             {contentItems.map((item, index) => (
-                <Card key={index} sx={{ mb: 2, p: 2, position: 'relative' }}>
+                <Card key={index} sx={{ mb: 2, p: 2, position: 'relative', display: 'flex', gap: 2 }}>
                     {editingIndex === index ? (
-                        <div>
-                            {Object.entries(editedItem || {}).map(([key, value]) => (
-                                key !== 'id' && (
-                                    <TextField
-                                        key={key}
-                                        label={key.charAt(0).toUpperCase() + key.slice(1)}
-                                        value={value || ''}
-                                        onChange={(e) => setEditedItem({
-                                            ...editedItem!,
-                                            [key]: getFieldType(key) === 'number' 
-                                                ? parseInt(e.target.value) || 0 
-                                                : e.target.value
-                                        })}
-                                        type={getFieldType(key)}
-                                        fullWidth
-                                        sx={{ mb: 2 }}
-                                    />
-                                )
-                            ))}
+                        <Box sx={{ flex: 1, pt: 4 }}>
+                            <ContentForm item={editedItem} onUpdate={setEditedItem} />
 
-                            <Button 
-                                variant="contained" 
+                            <Button
+                                variant="contained"
                                 onClick={handleUpdate}
-                                sx={{ mt: 2 }}
+                                sx={{ mt: 2, mr: 2 }}
                             >
                                 Update
+                            </Button><Button
+                                variant="outlined"
+
+                                onClick={() => setEditingIndex(null)}
+                                sx={{ mt: 2 }}
+                            >
+                                Cancel
                             </Button>
-                        </div>
+                        </Box>
                     ) : (
-                        <div onClick={() => handleEditClick(index)}>
+                        <Box sx={{ flex: 1, pt: 4 }} onClick={() => handleEditClick(index)}>
                             {item.value}
-                        </div>
+                        </Box>
                     )}
 
-                    <IconButton 
+                    <IconButton
                         aria-label="delete"
                         onClick={() => onDelete(index)}
-                        sx={{ 
+                        sx={{
                             position: 'absolute',
                             top: 8,
                             right: 8,

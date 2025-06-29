@@ -22,12 +22,20 @@ declare module '@mui/material/Chip' {
 const theme = createTheme({
   typography: {
     fontFamily: "var(--font-imprima)",
+    h1: {
+      fontSize: "2.1rem",
+      fontWeight: "bolder",
+    },
+    h2: {
+      fontSize: "1.9rem",
+      fontWeight: "bolder",
+    },
     h3: {
-      fontSize: "2.5rem",
+      fontSize: "1.6rem",
       fontWeight: "bolder",
     },
     h4: {
-      fontSize: "1.6rem",
+      fontSize: "1.3rem",
       fontWeight: "bolder",
     },
     h5: {

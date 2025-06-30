@@ -1,4 +1,4 @@
-export type ContentType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'image';
+export type ContentType = 'h1' | 'h2' | 'h3' | 'h4' | 'h5' | 'h6' | 'p' | 'image' | 'list';
 
 export interface ContentItem {
   type: ContentType;

@@ -50,6 +50,7 @@ export const ContentForm: React.FC<IContentFormProps> = ({
       case "h5":
       case "h6":
       case "p":
+      case "list":
         return (
           <FormControl fullWidth sx={{ mb: 2 }}>
             <TextField
@@ -218,6 +219,7 @@ export const ContentForm1: React.FC<IContentFormProps> = ({
     case "h5":
     case "h6":
     case "p":
+    case "list":
       return (
         <TextArea
           value={item?.value || ""}

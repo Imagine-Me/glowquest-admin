@@ -1,6 +1,6 @@
 import { ContentItem } from "@/interfaces/content.interface";
 
-export const CONTENT_TYPES = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'image'] as const;
+export const CONTENT_TYPES = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'p', 'image', 'list'] as const;
 
 export const CONTENT_SAMPLES: ContentItem[] = [
     { type: 'h1', value: 'Header 1' },
@@ -10,6 +10,7 @@ export const CONTENT_SAMPLES: ContentItem[] = [
     { type: 'h5', value: 'Header 5' },
     { type: 'h6', value: 'Header 6' },
     { type: 'p', value: 'Sample paragraph text' },
+    { type: 'list', value: 'List item\nList item' },
     {
         type: 'image',
         value: '/sample-image.jpeg',

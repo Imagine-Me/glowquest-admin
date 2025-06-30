@@ -43,11 +43,13 @@ export default function BlogEditPage({ id }: { id: number }) {
       <Box sx={{ maxHeight: "100vh", overflowY: "auto", position: "relative" }}>
         <Box
           sx={{
-            position: "absolute",
+            position: "fixed",
             top: 16,
             right: 16,
             display: "flex",
             gap: 2,
+            backgroundColor: 'white'
+            ,zIndex: 1000,
           }}
         >
           <Button

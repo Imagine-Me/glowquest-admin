@@ -25,7 +25,7 @@ export interface IPageProps {
     onEdit: (id: number) => void,
     onDelete: (id: number) => void
   ) => GridColDef[];
-  getData: (pagination: { page: number; pageSize: number,filters?:{ itemName?: string | undefined; siteId?: number | undefined; priceNull?: boolean | undefined; } }) => Promise<{
+  getData: (pagination: { page: number; pageSize: number, filters?: { itemName?: string | undefined; siteId?: number | undefined; priceNull?: boolean | undefined; product?: string; name?: string } }) => Promise<{
     data: unknown;
     status: number;
     ok: boolean;

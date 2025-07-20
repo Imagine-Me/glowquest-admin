@@ -26,7 +26,7 @@ export default function ItemDetailsPage() {
   const [selectedRowId, setSelectedRowId] = useState<null | number>(null);
   const [rows, setRows] = useState<IItemDetailsRow[]>([]);
   const [filters, setFilters] = useState({
-    itemName: '',
+    itemId: '',
     siteId: undefined as number | undefined,
     priceNull: undefined as boolean | undefined,
   });

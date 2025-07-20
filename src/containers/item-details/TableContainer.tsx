@@ -10,9 +10,11 @@ interface TableContainerProps {
   rows: IItemDetailsRow[];
   setRows: (rows: IItemDetailsRow[]) => void;
   filters: {
-    itemName: string;
+    itemId?: string;
     siteId?: number;
     priceNull?: boolean;
+    name?:string;
+    product?: string;
   };
   setSelectedRowId: (id: number | null) => void;
   setShowModal: (show: boolean) => void;

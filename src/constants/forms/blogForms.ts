@@ -59,3 +59,15 @@ export const blogForm = <T>(row?: T): IForm[] => {
     },
   ];
 };
+
+export const blogImportForm = (): IForm[] => {
+  return [
+    {
+      name: "jsonContent",
+      placeholder: "Paste JSON content",
+      type: "json",
+      required: true,
+      value: {}
+    }
+  ];
+};

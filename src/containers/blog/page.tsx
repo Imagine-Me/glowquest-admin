@@ -8,9 +8,12 @@ import { ContentSelectorDialog } from "../content/ContentSelectorDialog";
 import { CONTENT_SAMPLES } from "@/constants/contentTypes";
 import { getBlog, updateBlogContent } from "@/api/blog";
 import { IBlog } from "@/interfaces/blog.interface";
+import { FormModal } from "@/components/FormModal/FormModal";
+import { blogImportForm } from "@/constants/forms/blogForms";
 
 export default function BlogEditPage({ id }: { id: number }) {
   const [showModal, setShowModal] = useState(false);
+  const [showJsonModal, setShowJsonModal] = useState(false);
   const [contentItems, setContentItems] = useState<ContentItem[]>([]);
   const [data, setData] = useState<IBlog | null>(null);
 
@@ -28,14 +31,22 @@ export default function BlogEditPage({ id }: { id: number }) {
 
   const onSave = async () => {
     if (data) {
-      console.log(data);
       const body = {
         content: contentItems,
         id: data.id,
       };
       const res = await updateBlogContent(JSON.stringify(body));
       setData(res.data as IBlog);
+      return res;
     }
+  };
+
+  const onImport = async (content: string) => {
+    const parsedData = JSON.parse(content);
+    if (parsedData.jsonContent) {
+      setContentItems(parsedData.jsonContent as ContentItem[]);
+    }
+    return { data: [], status: 200, ok: true };
   };
 
   return (
@@ -48,8 +59,8 @@ export default function BlogEditPage({ id }: { id: number }) {
             right: 16,
             display: "flex",
             gap: 2,
-            backgroundColor: 'white'
-            ,zIndex: 1000,
+            backgroundColor: "white",
+            zIndex: 1000,
           }}
         >
           <Button
@@ -68,6 +79,13 @@ export default function BlogEditPage({ id }: { id: number }) {
             onClick={() => setShowModal(true)}
           >
             Publish
+          </Button>
+          <Button
+            color="secondary"
+            variant="contained"
+            onClick={() => setShowJsonModal(true)}
+          >
+            Import JSON
           </Button>
         </Box>
         <Box sx={{ mt: 6, p: 3 }}>
@@ -91,6 +109,21 @@ export default function BlogEditPage({ id }: { id: number }) {
           };
           setContentItems([...contentItems, newItem]);
         }}
+      />
+
+      <FormModal
+        open={showJsonModal}
+        handleClose={() => setShowJsonModal(false)}
+        form={blogImportForm()}
+        title="Import JSON Content"
+        onSubmit={
+          onImport as (content: string) => Promise<{
+            data: unknown;
+            status: number;
+            ok: boolean;
+          }>
+        }
+        isUpdate={false}
       />
     </>
   );

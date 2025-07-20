@@ -29,7 +29,6 @@ export const ContentForm: React.FC<IContentFormProps> = ({
   ) => {
     if (!item) return;
     const editValue = item[key];
-    console.log(key, subKey, value, item);
     if (typeof editValue === "string" || typeof editValue === "undefined") {
       return;
     }
@@ -37,7 +36,6 @@ export const ContentForm: React.FC<IContentFormProps> = ({
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     tempValue[subKey as keyof typeof tempValue] = value as any;
-    console.log(tempValue);
     onUpdate({ ...item, [key]: tempValue });
   };
 
@@ -200,7 +198,6 @@ export const ContentForm1: React.FC<IContentFormProps> = ({
   ) => {
     if (!item) return;
     const editValue = item[key];
-    console.log(key, subKey, value, item);
     if (typeof editValue === "string" || typeof editValue === "undefined") {
       return;
     }
@@ -208,7 +205,6 @@ export const ContentForm1: React.FC<IContentFormProps> = ({
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     tempValue[subKey as keyof typeof tempValue] = value as any;
-    console.log(tempValue);
     onUpdate({ ...item, [key]: tempValue });
   };
   switch (item?.type) {

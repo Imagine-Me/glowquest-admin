@@ -7,6 +7,10 @@ export const getVariantTypeOptions = async (): Promise<SelectOption[]> => {
       value: "color",
     },
     {
+      label: "Type",
+      value: "type",
+    },
+    {
       label: "Size",
       value: "size",
     },

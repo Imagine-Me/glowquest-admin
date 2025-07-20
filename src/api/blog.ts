@@ -15,7 +15,7 @@ export const getBlog = async (id: number) => {
   return await fetchAPI(`${BLOG_URL.GET}/${id}`);
 };
 
-export const updateBlogContent = async (body:string) => {
+export const updateBlogContent = async (body: string) => {
   return await fetchAPI(BLOG_URL.UPDATE_CONTENT, {
     method: "PUT",
     body,

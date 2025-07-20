@@ -8,16 +8,16 @@ export async function getItemDetails<T>(params: {
   page: number;
   pageSize: number;
   filters?: {
-    itemName?: string;
+    itemId?: string;
     siteId?: number;
     priceNull?: boolean;
   };
 }) {
   let url = `${ITEM_DETAILS_URLS.GET}?skip=${params.page}&limit=${params.pageSize}`;
-  
+
   if (params.filters) {
-    if (params.filters.itemName) {
-      url += `&itemName=${encodeURIComponent(params.filters.itemName)}`;
+    if (params.filters.itemId) {
+      url += `&itemId=${encodeURIComponent(params.filters.itemId)}`;
     }
     if (params.filters.siteId) {
       url += `&siteId=${params.filters.siteId}`;

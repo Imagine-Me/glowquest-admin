@@ -9,7 +9,7 @@ interface FiltersContainerProps {
   loadingItems: boolean;
   loadingSites: boolean;
   filters: {
-    itemName: string;
+    itemId: string;
     siteId?: number;
     priceNull?: boolean;
   };
@@ -38,7 +38,7 @@ export function FiltersContainer({
           onInputChange={(_: unknown, value: string) => onItemSearch(value)}
           onChange={(_: unknown, value: SelectOption | string | null) => {
             if (!value || typeof value === 'string') return;
-            onFilterChange('itemName', (value as SelectOption).value);
+            onFilterChange('itemId', (value as SelectOption).value);
           }}
           renderInput={(params) => (
             <TextField

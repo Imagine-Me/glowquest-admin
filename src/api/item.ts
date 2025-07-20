@@ -5,9 +5,10 @@ import { fetchAPI } from "./api";
 import { apiHeader } from "@/utils/common";
 import { SelectOption } from "@/interfaces/common.interface";
 
-export async function getItems(pagination: { page: number; pageSize: number }) {
+export async function getItems(pagination: { page: number; pageSize: number, filters?: { name?: string; product?: string } }) {
+  const { filters } = pagination;
   return await fetchAPI(
-    `${ITEM_URLS.GET}?skip=${pagination.page}&limit=${pagination.pageSize}`
+    `${ITEM_URLS.GET}?skip=${pagination.page}&limit=${pagination.pageSize}${filters?.name ? `&name=${filters.name}` : ""}${filters?.product ? `&product=${filters.product}` : ""}`,
   );
 }
 

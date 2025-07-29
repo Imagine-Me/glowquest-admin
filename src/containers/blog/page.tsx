@@ -88,14 +88,14 @@ export default function BlogEditPage({ id }: { id: number }) {
             Import JSON
           </Button>
         </Box>
-        <Box sx={{ mt: 6, p: 3 }}>
+        <Box sx={{ mt: 6, p: 3, mx: "auto" }} maxWidth={{ xs: "100%", sm: "1200px" }}>
           <ContentLayout
             setContentItems={setContentItems}
             contentItems={contentItems}
           />
         </Box>
       </Box>
-
+      
       <ContentSelectorDialog
         open={showModal}
         onClose={() => setShowModal(false)}
